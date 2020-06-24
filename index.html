@@ -4,12 +4,96 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My Website</title>
+    <title>Lorem Ipsum Dolor Sit Amet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet"> -->
+    <!-- Helper CSS classes -->
+    <style>
+        .box-link {
+            font-size: 24px;
+            font-variant: small-caps;
+            border: 2px solid white;
+            padding: 5px 15px;
+            text-decoration: none;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <!-- Main CSS -->
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+
+        p {
+            margin: 0px;
+        }
+
+        ul {
+            margin-top: 15px;
+            margin-bottom: 0px;
+        }
+
+        a:hover {
+            color: lightgrey ;
+        }
+
+        body {
+            background-color: #0D0F44;
+        }
+
+        .card {
+            width: 90vw;
+            border: 1px solid white;
+            border-radius: 15px; 
+            margin: 10px auto;
+            padding: 15px;
+        }
+
+        #heading-text {
+            font-size: 72px;
+            text-align: center;
+            margin-top: 0.5em;
+            margin-bottom: 0.25em;
+        }
+
+        #imglinks {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #taiko {
+            width: 300px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <p>Test webpage</p>
-    <img style="width:600px; height:auto;" src=image.jpg>
+    <p id="heading-text">Hi!</p>
+    <div id="imglinks">
+        <div class="imglink">
+            GitHub: <a href="https://github.com/barrysir">barrysir</a>
+        </div>
+    </div>
+    <div class="card">
+        <p>Cool stuff:</p>
+        <ul>
+            <li><a href="/blog">Math posts</a></li>
+        </ul>
+    </div>
+    <img class="center" id="taiko" src="image.jpg">
+    <script>
+        document.getElementById("taiko").addEventListener("click", function(ev) {
+            angle = Math.random() * 360;
+            this.style.filter = `hue-rotate(${angle}deg)`;
+        });
+    </script>
 </body>
 
 </html>
