@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja"><head prefix="og:http://ogp.me/ns#">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta property="og:title" content="オンゲキ ベスト枠画像ジェネレーター NEW">
+    <meta property="og:description" content="OngekiScoreLogのデータからベスト枠の画像を生成します。">
+    <meta property="og:url" content="https://reiwa.f5.si/newbestimg/ongeki">
+    <meta property="og:type" content="website">
+    <title>Ongeki Best Frame Image Generator NEW</title>
+    <link rel="stylesheet" href="/public/ongeki/reiwa/destyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="/public/ongeki/reiwa/css2.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/ongeki/reiwa/main.css">
+    <link rel="stylesheet" href="/public/ongeki/reiwa/render.css">
+    <link rel="stylesheet" href="/public/ongeki/reiwa/loader.css">
+    <link rel="stylesheet" href="/public/ongeki/reiwa/render-ongeki.css">
+    <script src="/public/ongeki/reiwa/html2canvas.js"></script>
+    <script src="/public/ongeki/reiwa/md5.js"></script>
+    <script src="/public/ongeki/reiwa/main.js"></script>
+    <script src="/public/ongeki/reiwa/parser.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>オンゲキ ベスト枠画像ジェネレーター NEW</h1>
+    </header>
+    <a href="https://reiwa.f5.si/newbestimg/chunithm/" class="guidelink">CHUNITHM Best Frame Image Generator NEW is here </a>
+    <main>
+        <section class="descriptions">
+            <section class="descblock">
+                <h2>About this tool </h2>
+                <p>This is a tool that creates images of the top 30 rated songs based on OngekiScoreLog data. </p>
+                <p><b>This tool is available exclusively to premium course members. </b></p>
+                <p>
+                    This site uses Google Analytics, for more information <a href="https://reiwa.f5.si/privacy-policy.html"> our Privacy Policy </a> please see  .
+                 </p>
+            </section>
+            <section class="descblock">
+                <div class="notifier" style="color: white; background-color: rgb(185, 37, 44); margin-bottom:10px;">
+                    <h3>Ongeki Re:Fresh maintenance (March 27, 2025) </h3>
+                    <p>Due to maintenance to support the new version, <b> this tool will not function properly for a while. </b> Thank you for your understanding. </p>
+                    <p>This tool relies on OngekiScoreLog for music data
+ and player data, and any modifications to the tool will be made in 
+accordance with OngekiScoreLog. </p>
+                    <p>Due to the recent major changes to the rating 
+system, it will be extremely difficult to properly implement these tools
+ until the methods for calculating the rates and various constants are 
+clarified. </p>
+                    <p>We apologize for any inconvenience this may cause and appreciate your patience. </p>
+                </div>
+            </section>
+            <!-- <section class="descblock">
+                <div class="notifier" style="color:white;background-color: rgb(168, 12, 90); margin-top: 10px;">
+                    <h3>【おそらく解決済み】削除曲がベスト枠等に入っていた場合の異常な挙動について (2024/09/09)</h3>
+                    <p>9/5に削除された楽曲がOngekiScoreLogにおいてベスト枠等に入っていた場合、当該楽曲が無視されて本来より少ない楽曲数で画像が生成される現象が発生していました。</p>
+                    <p>数件ほど報告を受けておりましたが、現在は問題なく生成されていることが確認できました。</p>
+                    <p>本件は解決したものと認識していますが、もし何らかの問題が発生していた場合は下記フォームよりご連絡ください。</p>
+                </div>
+            </section> -->
+            <!-- <section class="descblock">
+                <h3>更新履歴</h3>
+                <details open>
+                    <summary>クリック・タップして開く</summary>
+                    <div>
+                        <div>2023/09/02</div>
+                        <ul>
+                            <li>オンゲキ ベスト枠画像ジェネレーター NEWを公開しました。</li>
+                            <li>同一楽曲の複数難易度をプレイした際にAB/FC/FBのランプが間違っていることがある不具合を修正しました。</li>
+                        </ul>
+                    </div>
+                </details>
+            </section> -->
+            <section class="descblock">
+                <h3>How to use </h3>
+                <p>Enter your OngekiScoreLog user ID in the "Register OngekiScoreLog information" section below. </p>
+                <p>For smartphones, your user ID is underlined in the image below. </p>
+                <figure>
+                    <img src="/public/ongeki/reiwa/id_desc.png" alt="Register OngekiScoreLog information">
+                </figure>
+            </section>
+            <section class="descblock">
+                <h3>お問い合わせ</h3>
+                <p>本ツールに関するお問い合わせは、<a href="https://forms.gle/cAUP6hAQSdAi16Ns9" target="_blank">こちら</a>のGoogleフォームまたは<a href="https://x.com/QmanEnobikto" target="_blank">作者X(旧twitter)アカウント</a>にお願いします。（※XのDMは気づき辛いので可能であればリプライや他の手段を用いていただけると幸いです）</p>
+            </section>
+            <section class="descblock">
+                <h3>注意事項</h3>
+                <ul>
+                    <li><span class="warn">プレミアムコースに登録していないユーザーは本ツールを利用できません。</span></li>
+                    <li>ユーザーID入力されていない場合、本ツールは動作しません。</li>
+                    <li>OngekiScoreLogがメンテナンスを行っているなどの事情で、本ツールが使用できないことがあります。</li>
+                </ul>
+            </section>
+            <section class="descblock">
+                <h3>仕様</h3>
+                <ul>
+                    <li>『プレビューを表示する』にチェックが入っていなくても一時的にプレビューと同じ描画領域が表示されます。<br>
+                        一時的に表示が崩れることがありますが、使用する上での問題はありません。</li>
+                    <li>「NEW!!」エンブレムの基準になる更新日は、テクニカルスコア以外（バトルスコアなど）の更新でも登録されます。</li>
+                </ul>
+            </section>
+        </section>
+        <section class="settings">
+            <h2>設定</h2>
+            <section class="setblock">
+                <h3>OngekiScoreLog 情報の登録</h3>
+                <p>OngekiScoreLog ユーザーID</p>
+                <input type="number" id="osl_id" min="1" value="2345">
+            </section>
+            <section class="setblock">
+                <h3>一部楽曲のスコア登録</h3>
+                <p>スコアデータに間違いがある場合、ここで修正してください。</p>
+                <p>必要がない場合は空欄のままにしてください。</p>
+                <div class="gendeepbg">
+                    <p style="font-size: 0.95rem; margin-bottom: 5px; color: #000;">Perfect Shining!! (LUNATIC 13+)</p>
+                    <input type="number" id="fix_perfectshining" min="1" max="1010000">
+                    <p>
+                        <label for="fix_perfectshining_fc" style="display: inline-block; margin: 4px 3px 0;"><input type="checkbox" id="fix_perfectshining_fc"> FC</label>
+                        <label for="fix_perfectshining_ab" style="display: inline-block; margin: 4px 3px 0;"><input type="checkbox" id="fix_perfectshining_ab"> AB</label>
+                        <label for="fix_perfectshining_fb" style="display: inline-block; margin: 4px 3px 0;"><input type="checkbox" id="fix_perfectshining_fb"> FB</label>
+                    </p>
+                </div>
+            </section>
+            <section class="setblock">
+                <h3>その他の設定</h3>
+                <label for="showprev"><input type="checkbox" id="showprev"> プレビューを表示する(表示が崩れる場合があります)</label>
+                <label for="showaddrate"><input type="checkbox" id="showaddrate" checked="checked"> 新曲枠平均・リーセント枠平均・到達可能レートを表示する</label>
+                <label for="shownew"><input type="checkbox" id="shownew" checked="checked"> 新曲枠を表示する</label>
+                <label for="shownewemb"><input type="checkbox" id="shownewemb"> 最も更新日が最近の楽曲に「NEW!!」エンブレムを表示する</label>
+                <!-- <label for="copyrightmode"><input type="checkbox" id="copyrightmode"> 著作権モード(ジャケットを代替画像で置き換える)</label> -->
+            </section>
+        </section>
+        <button class="general-button" id="generate" onclick="generate()">生成する</button>
+        <div class="loader" id="imggen_loader"></div>
+        <div id="pre-render-area">
+            <section id="img-header">
+                <img src="/public/ongeki/reiwa/logo.png" width="130" id="img-logoimg">
+                <div id="img-header-text" style="width: fit-content;">
+                    <div id="img-title"></div>
+                    <div id="img-by">By ベスト枠画像ジェネレーター NEW</div>
+                </div>
+                <div id="img-datetime">
+                    <div>GENERATE: <span id="v-generate-dt"></span></div>
+                </div>
+            </section>
+            <section id="img-player-data">
+                <div id="img-player-name">
+                    <div id="img-player-name-txt" class="img-plinfo-txt">
+                        Player's Name
+                    </div>
+                    <div id="img-player-name-block" class="img-plinfo-plate">
+                        <span id="v-player-name"></span>
+                    </div>
+                </div>
+                <div id="img-player-rating">
+                    <div id="img-player-rating-txt" class="img-plinfo-txt">
+                        Rating
+                    </div>
+                    <div id="img-player-rating-block" class="img-plinfo-plate img-rating">
+                        <span id="v-current-rating"></span> <span class="rating-sub">MAX <span id="v-max-rating"></span>
+                            / AVG <span id="v-avg-rating"></span></span>
+                        <div id="img-rating-additional">
+                            NEW <span id="v-new-rating"></span> / RECENT <span id="v-recent-rating"></span> / REACHABLE
+                            <span id="v-reachable-rating"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section id="img-best">
+                <div id="img-best-title-txt">Best 30 Songs</div>
+                <div id="img-best-songs">
+                </div>
+            </section>
+            <section id="img-new">
+                <div id="img-new-title-txt">New 15 Songs</div>
+                <div id="img-new-songs">
+                </div>
+            </section>
+            <section id="img-footer">
+                <div id="img-footer-text">
+                    <div>Generated by <b>ベスト枠画像ジェネレーター NEW</b> (https://reiwa.f5.si/newbestimg/ongeki)</div>
+                    <div>※本画像におけるロゴ・背景・楽曲ジャケット画像の著作権は、全て著作権所持者に帰属します。</div>
+                    <div>※本画像は非公式のものであり、株式会社SEGA様及びその関連会社とは一切関係ありません。</div>
+                </div>
+            </section>
+        </div>
+        <div id="result-img-wrapper"></div>
+        <div id="imgcanvasbase"></div>
+        <button class="general-button" id="generate-image" onclick="renderImage()">画像化する</button>
+        <button class="general-button" id="download" onclick="download()">画像をダウンロードする</button>
+        <button class="general-button" id="share" onclick="share()">画像をシェアする</button>
+    </main>
+    <footer>
+        <p>© 2023 Kjuman Enobikto</p>
+        <p>サイト上のロゴ・背景・楽曲ジャケット画像の著作権は、全て著作権所持者に帰属します。</p>
+        <p>本サイトは非公式のものであり、株式会社SEGA様及びその関連会社とは一切関係ありません。</p>
+    </footer>
+
+
+</body></html>
