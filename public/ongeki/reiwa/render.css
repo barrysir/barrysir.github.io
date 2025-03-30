@@ -93,13 +93,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-image: url("../images/musicbg.png");
+    background-image: url("images/musicbg.png");
     margin-top: 10px;
     font-family: "Noto Sans", "Noto Sans JP", sans-serif;
 }
 
 /* .dark {
-    background-image: url("../images/musicbg-dark.png") !important;
+    background-image: url("images/musicbg-dark.png") !important;
 } */
 
 .img-song-block {
@@ -172,7 +172,7 @@
     position: absolute;
     bottom: 32px; right: 5px;
     padding: 1px 5px 2px 5px;
-    background-image: url("../images/musicbg.png");
+    background-image: url("images/musicbg.png");
     font-family: "Oswald", sans-serif;
     font-size: 14px;
 }
@@ -190,7 +190,7 @@
     position: absolute;
     bottom: 10px; right: 5px;
     padding: 1px 5px 2px 5px;
-    background-image: url("../images/musicbg.png");
+    background-image: url("images/musicbg.png");
     font-family: "Oswald", sans-serif;
     font-size: 14px;
 }
@@ -230,7 +230,7 @@
 
 /* フッタ */
 #img-footer {
-    background-image: url("../images/musicbg.png");
+    background-image: url("images/musicbg.png");
     padding: 10px;
     width: fit-content;
 }

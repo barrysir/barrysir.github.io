@@ -1,5 +1,5 @@
-const URLbase_capture = "https://capturer.qmc.workers.dev/";
-const allMusicsURL = "https://reiwa.f5.si/ongeki_const_all.json";
+// const URLbase_capture = "https://capturer.qmc.workers.dev/";
+const allMusicsURL = "/public/ongeki/reiwa/ongeki_const_all.json";
 var allMusics;
 
 var testmode = false;
@@ -192,60 +192,143 @@ function parseScorePremium(table, lampDateData) {
     return r;
 }
 
-async function parsePage(userid) {
-    const urlTechnical = URLbase_capture + `?id=${userid}&type=normal`;
-    const urlRating = testmode ? "https://capturer-test.qmc.workers.dev" : URLbase_capture + `?id=${userid}&type=premium`;
-    const parser = new DOMParser();
+// async function parsePage(userid) {
+//     const urlTechnical = URLbase_capture + `?id=${userid}&type=normal`;
+//     const urlRating = testmode ? "https://capturer-test.qmc.workers.dev" : URLbase_capture + `?id=${userid}&type=premium`;
+//     const parser = new DOMParser();
 
-    const pageTechnical = await (await fetch(urlTechnical)).json();
-    const docTechnical = parser.parseFromString(pageTechnical.txt, "text/html");
+//     const pageTechnical = await (await fetch(urlTechnical)).json();
+//     const docTechnical = parser.parseFromString(pageTechnical.txt, "text/html");
 
-    // Premiumチェック
-    if (docTechnical.getElementsByClassName("net-premium").length === 0) {
-        alert("ユーザーはオンゲキ-NETのプレミアムコースに登録していません。（月をまたいだ場合は再度OngekiScoreLogにスコアを登録してください）");
+//     // Premiumチェック
+//     if (docTechnical.getElementsByClassName("net-premium").length === 0) {
+//         alert("ユーザーはオンゲキ-NETのプレミアムコースに登録していません。（月をまたいだ場合は再度OngekiScoreLogにスコアを登録してください）");
+//         return false;
+//     }
+
+//     const pageRating = await (await fetch(urlRating)).json();
+//     const docRating = parser.parseFromString(pageRating.txt, "text/html");
+
+//     const lampDateData = getLampDateData(docTechnical);
+
+//     // プロフィール
+//     const profiles = docTechnical.getElementsByClassName("table")[0].firstElementChild.children;
+//     const playerName = profiles[0].children[1].innerText;
+//     const ratings = profiles[4].children[1].innerText;
+//     const current = ratings.slice(0, 5);
+//     const best = ratings.slice(-6, -1);
+
+//     const bestsTable = docRating.getElementById("rating_old").getElementsByClassName("table_wrap scalable")[0].getElementsByTagName("tbody")[0].children;
+//     const bestsOutTable = docRating.getElementById("rating_old").getElementsByClassName("table_wrap scalable")[1].getElementsByTagName("tbody")[0].children;
+//     const newsTable = docRating.getElementById("rating_new").getElementsByClassName("table_wrap scalable")[0].getElementsByTagName("tbody")[0].children;
+//     const newsOutTable = docRating.getElementById("rating_new").getElementsByClassName("table_wrap scalable")[1].getElementsByTagName("tbody")[0].children;
+//     const recentsTable = docRating.querySelector("#rating_recent > div:nth-child(4) > table:nth-child(1) > tbody:nth-child(3)").children; // いずれ統一
+
+//     let recordsdata = parseScorePremium(bestsTable, lampDateData);
+//     const outRecordsdata = parseScorePremium(bestsOutTable, lampDateData);
+//     let newRecordsdata = parseScorePremium(newsTable, lampDateData);
+//     const outNewRecordsdata = parseScorePremium(newsOutTable, lampDateData);
+//     const recentRecordsdata = parseScorePremium(recentsTable, lampDateData);
+
+//     // スコア手入力ある場合はべ枠と新曲枠の候補枠を結合してソートして上位だけに切りそろえる
+//     if (modifiedScore) {
+//         recordsdata = recordsdata.concat(outRecordsdata).sort((a, b) => b.rating - a.rating).slice(0, 30);
+//         newRecordsdata = newRecordsdata.concat(outNewRecordsdata).sort((a, b) => b.rating - a.rating).slice(0, 15);
+//     }
+
+//     const reachable = docRating.querySelector("span.subtitle").innerText.slice(-6);
+
+//     return {
+//         player_name: playerName,
+//         rating: current,
+//         rating_max: best,
+//         records: recordsdata,
+//         new_records: newRecordsdata,
+//         rec_records: recentRecordsdata,
+//         reachable: reachable
+//     }
+// }
+
+function selectFile(accept = null) {
+    return new Promise(async resolve => {
+        const fileInputElement = document.createElement('input');
+        fileInputElement.type = 'file';
+        if (accept) fileInputElement.accept = accept;
+        fileInputElement.addEventListener('change', () => {
+            const file = fileInputElement.files[0];
+            resolve(file);
+        });
+        fileInputElement.addEventListener('cancel', () => {
+            console.log('No file selected.');
+            resolve(null);
+        });
+        fileInputElement.click();
+    });
+}
+
+async function loadFile() {
+    let file = await selectFile();
+    let data;
+    if (file == null) {
+        data = {};
+    } else {
+        let text = await file.text();
+        data = JSON.parse(text);
+    }
+    return data;
+}
+
+async function parsePage(userId) {
+    function one(arr) {
+        if (arr.length > 1) {
+            return null;
+        } else if (arr.length == 0) {
+            return null;
+        } else {
+            return arr[0];
+        }
+    }
+    
+    function findSongId(song) {
+        let m; 
+        m = one(allMusics.filter(m => m.title === song.title && m.artist === song.artist));
+        if (m) {
+            // overwrite displayed song constant, if loading act 2 constants or etc.
+            m[song.diff.toLowerCase()].const = song.const;
+            return m.music_id;
+        }
+        
+        m = one(allMusics.filter(m => m.title.substr(0, 5) === song.title.substr(0, 5)));
+        if (m) {
+            m[song.diff.toLowerCase()].const = song.const;
+            return m.music_id;
+        }
+        
+        // Couldn't find the song, just return a random id so the image formatting doesn't screw up
+        console.log(`Couldn't find song id for song ${song.artist} - ${song.title}`);
+        return 27;
+    }
+
+    function addSongId(songs) {
+        for (let song of songs) {
+            song.id = findSongId(song);
+        }
+        return songs;
+    }
+    
+    const data = await loadFile();
+    if (data.best == null) {        // failed to load file
         return false;
     }
 
-    const pageRating = await (await fetch(urlRating)).json();
-    const docRating = parser.parseFromString(pageRating.txt, "text/html");
-
-    const lampDateData = getLampDateData(docTechnical);
-
-    // プロフィール
-    const profiles = docTechnical.getElementsByClassName("table")[0].firstElementChild.children;
-    const playerName = profiles[0].children[1].innerText;
-    const ratings = profiles[4].children[1].innerText;
-    const current = ratings.slice(0, 5);
-    const best = ratings.slice(-6, -1);
-
-    const bestsTable = docRating.getElementById("rating_old").getElementsByClassName("table_wrap scalable")[0].getElementsByTagName("tbody")[0].children;
-    const bestsOutTable = docRating.getElementById("rating_old").getElementsByClassName("table_wrap scalable")[1].getElementsByTagName("tbody")[0].children;
-    const newsTable = docRating.getElementById("rating_new").getElementsByClassName("table_wrap scalable")[0].getElementsByTagName("tbody")[0].children;
-    const newsOutTable = docRating.getElementById("rating_new").getElementsByClassName("table_wrap scalable")[1].getElementsByTagName("tbody")[0].children;
-    const recentsTable = docRating.querySelector("#rating_recent > div:nth-child(4) > table:nth-child(1) > tbody:nth-child(3)").children; // いずれ統一
-
-    let recordsdata = parseScorePremium(bestsTable, lampDateData);
-    const outRecordsdata = parseScorePremium(bestsOutTable, lampDateData);
-    let newRecordsdata = parseScorePremium(newsTable, lampDateData);
-    const outNewRecordsdata = parseScorePremium(newsOutTable, lampDateData);
-    const recentRecordsdata = parseScorePremium(recentsTable, lampDateData);
-
-    // スコア手入力ある場合はべ枠と新曲枠の候補枠を結合してソートして上位だけに切りそろえる
-    if (modifiedScore) {
-        recordsdata = recordsdata.concat(outRecordsdata).sort((a, b) => b.rating - a.rating).slice(0, 30);
-        newRecordsdata = newRecordsdata.concat(outNewRecordsdata).sort((a, b) => b.rating - a.rating).slice(0, 15);
-    }
-
-    const reachable = docRating.querySelector("span.subtitle").innerText.slice(-6);
-
     return {
-        player_name: playerName,
-        rating: current,
-        rating_max: best,
-        records: recordsdata,
-        new_records: newRecordsdata,
-        rec_records: recentRecordsdata,
-        reachable: reachable
+        player_name: data.name,
+        rating: data.rating,
+        rating_max: data.ratingMax,
+        records: addSongId(data.best),
+        new_records: addSongId(data.news),
+        rec_records: addSongId(data.recent),
+        reachable: data.ratingMax,  // doesn't do anything
     }
 }
 

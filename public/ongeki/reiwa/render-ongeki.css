@@ -1,6 +1,6 @@
 /* 事前描画(HTML) */
 #pre-render-area {
-    background: white url(../images/bg_mesh.png) repeat;    
+    background: white url(images/bg_mesh.png) repeat;    
 }
 
 #img-header,
@@ -51,7 +51,7 @@
     position: absolute;
     right: 5px;
     padding: 1px 5px 1px 5px;
-    background-image: url("../../../commonassets/images/musicbg.png");
+    background-image: url("images/musicbg.png");
     font-family: "Oswald", sans-serif;
     font-size: 14px;
     color: rgb(255, 223, 117);

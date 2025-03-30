@@ -96,7 +96,8 @@ function removeButtons() {
 function renderImage() {
     loadingState(true);
     removeButtons();
-    html2canvas(document.getElementById("pre-render-area"), { scale: 2 }).then(c => {
+    // useCORS required to render jackets, which are loaded from reiwa
+    html2canvas(document.getElementById("pre-render-area"), { scale: 2, useCORS: true, }).then(c => {
         document.getElementById("pre-render-area").style.display = "none";
         const img = document.createElement("img");
         img.src = c.toDataURL("image/jpeg");
@@ -256,14 +257,14 @@ function renderSongsArea(area, songs, newestDate) {
 async function generate() {
     loadingState(true);
 
-    if (document.getElementById("osl_id").value === "") {
-        alert("ユーザーIDが入力されていません。");
-        loadingState(false);
-        return;
-    }
+    // if (document.getElementById("osl_id").value === "") {
+    //     alert("ユーザーIDが入力されていません。");
+    //     loadingState(false);
+    //     return;
+    // }
 
     // ユーザープロフィール取得
-    const userid = document.getElementById("osl_id").value;
+    const userid = 0; // document.getElementById("osl_id").value;
     const userData = await parsePage(userid);
 
     if (!userData) {
@@ -305,7 +306,7 @@ async function generate() {
     // }
 
     // 背景(著作権モード関連)
-    // document.getElementById("pre-render-area").style.background = "white url(../images/bg_mesh.png) repeat";
+    // document.getElementById("pre-render-area").style.background = "white url(images/bg_mesh.png) repeat";
     // if (document.getElementById("copyrightmode").checked) {
     //     document.getElementById("pre-render-area").style.background = "linear-gradient(20deg, #fff 10%, #efefef 10%, #efefef 20%, #fff 20%, #fff 20%, #fff 30%, #efefef 30%, #efefef 40%, #fff 40%, #fff 40%, #fff 50%, #efefef 50%, #efefef 60%, #fff 60%, #fff 60%, #fff 70%, #efefef 70%, #efefef 80%, #fff 80%, #fff 80%, #fff 90%, #efefef 90%)";
     // }
