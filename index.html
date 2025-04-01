@@ -28,6 +28,7 @@
         * {
             font-family: 'Roboto', sans-serif;
             color: white;
+            box-sizing: border-box;
         }
 
         p {
@@ -45,6 +46,8 @@
 
         body {
             background-color: #0D0F44;
+            margin: 0;
+            padding: 0;
         }
 
         .card {
@@ -75,19 +78,9 @@
 </head>
 
 <body>
-    <p id="heading-text">Hi!</p>
-    <div id="imglinks">
-        <div class="imglink">
-            GitHub: <a href="https://github.com/barrysir">barrysir</a>
-        </div>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <img class="center" id="taiko" src="image.jpg">
     </div>
-    <div class="card">
-        <p>Cool stuff:</p>
-        <ul>
-            <li><a href="/blog">Math posts</a></li>
-        </ul>
-    </div>
-    <img class="center" id="taiko" src="image.jpg">
     <script>
         document.getElementById("taiko").addEventListener("click", function(ev) {
             angle = Math.random() * 360;
