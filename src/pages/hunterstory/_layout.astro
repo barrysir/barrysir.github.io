@@ -25,7 +25,7 @@ const { pageTitle } = Astro.props;
         <tr valign="top"><td width="230px">
         <b>Navigation</b><br>
         <ul style="list-style-type: none; padding-left: 10px; font-size: 15px;">                    
-            <li><Navlink href="home.html" title="Home" /></li>
+            <li><Navlink curr={pageTitle} href="home.html" title="Home" /></li>
             <li>
                 <dl>
                 <dt><Navlink curr={pageTitle} href="hunterstoryguide.html" title="Hunterstory Guide" /></dt>
@@ -46,12 +46,14 @@ const { pageTitle } = Astro.props;
                 </dl>
             </li>
             <li><a href="creditschangelog.html">Credits/Changelog</a></li>
+            <li><Navlink curr={pageTitle} href="downloads.html" title="Downloads" /></li>
+            <li>&nbsp;</li>
             <li><a href="..">&lt;&lt;&lt; Back</a></li>
         </ul>
         </td>
 
         <td>
-            <h2>{pageTitle}</h2>
+            <h1>{pageTitle}</h1>
 		    <slot />
         </td>
 	</body>
