@@ -1,0 +1,52 @@
+---
+let {cols, toplevel} = Astro.props;
+
+function formula(level) {
+    return Math.floor(level*(level+1)*(level+2)/2);
+}
+
+function array_range(start, stop, step) {
+    let c = [];
+    for (let i=start; i<stop; i+=step) {
+        c.push(i);
+    }
+    return c;
+}
+
+function array_length_n(n) {
+    return Array.from({ length: n }, (_, i) => i);
+}
+
+let totalRows = Math.ceil(toplevel/cols);
+---
+
+<style>
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid rgb(136,136,136);
+    text-align: center;
+}  
+</style>
+
+<table>
+    <thead>
+        <tr>
+            {array_length_n(cols).map((v) => (
+                <td style="width:60px;"><b>Level</b></td>
+                <td style="width:60px;"><b>EXP</b></td>
+            ))}
+        </tr>
+    </thead>
+    <tbody>
+        {array_length_n(totalRows).map((r) => (
+            <tr>
+                {array_range(r+1, toplevel+1, totalRows).map((level) => (
+                    <td>{level}</td>
+                    <td>{formula(level)}</td>
+                ))}
+            </tr>
+        ))}
+    </tbody>
+</table>

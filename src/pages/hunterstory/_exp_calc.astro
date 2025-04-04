@@ -1,0 +1,53 @@
+---
+
+---
+
+<script is:inline>
+	function parseLevel(level) {
+		let ans = parseInt(level);
+		if (isNaN(ans)) {
+			return null;
+		}
+		if (ans <= 0) {
+			return null;
+		}
+		return ans;
+	}
+	function calc1(val, output) {
+		let level = parseLevel(val);
+		if (level === null) {
+			output.innerHTML = "Invalid input.";
+		} else {
+			let exp = Math.floor(level*(level+1)*(level+2)/2);
+			output.innerHTML = `Level ${level}: ${exp} EXP`;
+		}
+	}
+	
+	function calc2(_low, _high, output) {
+		let level = parseLevel(_low);
+		let level2 = parseLevel(_high);
+		if (level === null || level2 === null) {
+			output.innerHTML = "Invalid input.";
+			return;
+		}
+		level2 -= 1;
+		if (!(level <= level2)) { 
+			output.innerHTML = "Second number must be greater than first number.";
+			return;
+		}
+		let exp = Math.floor((level2-level+1)*(level+level2+2)*(level*level+level+level2*(level2+3))/8);
+		output.innerHTML = `Level ${level} to ${level2+1}: ${exp} EXP`;
+	}
+</script>
+
+<fieldset>
+	<legend>EXP Calculator</legend>
+
+	Level: <input type="text" id="input" />
+	<button onclick="calc1(input.value, output)">Calculate</button> <br />
+	<div id="output" style="color:blue"></div>
+	
+	Level <input type="text" id="input2" /> to <input type="text" id="input3" />
+	<button onclick="calc2(input2.value, input3.value, output2)">Calculate</button>
+	<div id="output2" style="color:blue"></div>
+</fieldset>
