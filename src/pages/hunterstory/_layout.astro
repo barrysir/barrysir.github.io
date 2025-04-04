@@ -1,6 +1,11 @@
 ---
-const pageTitle = "Home Page";
 import '@assets/hunterstory/hunterstory.css';
+
+interface Props {
+  pageTitle: string; // Making 'title' a mandatory string prop
+}
+
+const { pageTitle } = Astro.props;
 
 // const pages = import.meta.glob('./*.astro');
 
@@ -16,7 +21,7 @@ import '@assets/hunterstory/hunterstory.css';
 	</head>
 	<body>
     <table>
-        <tr valign="top"><td width="20%">
+        <tr valign="top"><td width="230px">
         <b>Navigation</b><br>
         <ul style="list-style-type: none; padding-left: 10px; font-size: 15px;">
             <li><a href="home.html">Home</a></li>
@@ -38,8 +43,7 @@ import '@assets/hunterstory/hunterstory.css';
         </td>
 
         <td>
-            <h3>{pageTitle}</h3>
-            <hr>
+            <h2>{pageTitle}</h2>
 		    <slot />
         </td>
 	</body>
