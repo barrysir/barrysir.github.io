@@ -1,0 +1,145 @@
+---
+
+layout: ./_mdx_layout.astro
+title: Spawning
+
+---
+
+tl;dr
+ * Mob spawn rate is very slowly increased until a mob is spawned, to counteract RNG
+ * Only one mob can spawn on a frame; mob 1 gets priority over mob 2 gets priority over mob 3
+ * Mobs have a 0.8% chance to spawn with 1.5x HP and give 3x experience
+ * Bosses only process every third arrow hit detection -- it can take up to 3 frames for an arrow to damage a boss
+ * After a boss is killed, the gradual increase of the spawn rate is multiplied by 2.2
+
+First, when the mission is started, these variables are initialized:
+
+```js
+spawndrought = 0; 
+spawncount = 0.05;
+```
+
+`spawndrought` is a value for RNG smoothing, which increases by `spawncount` every frame until a mob is spawned (except on the ascension mission).  
+`spawncount` generally stays the same, except on boss missions: it gets multiplied by 2.2 (final value of 0.11) when the boss is killed.  
+
+```js
+function monsterdeath() {
+    if (_local1.bossres != undefined) { 
+        spawncount = spawncount * 2.2; 
+    } 
+    // ... 
+}
+```
+
+As well, the mob data from slot 1, 2, and 3 is stored into `spawna`, `spawnb`, and `spawnc` like this (see [Mission Data](Mission Data)):
+
+```js
+// mid is the mission id, starting with 1 at Green Snails Only 
+spawna.odds = levellist[("m" + mid) + "o1"]; //spawn rate 
+spawna.speed = levellist[("m" + mid) + "s1"]; //speed 
+spawna.xp = levellist[("m" + mid) + "x1"]; //EXP 
+spawna.hp = levellist[("m" + mid) + "h1"]; //HP 
+spawna.kb = levellist[("m" + mid) + "k1"]; //knockback 
+spawna.linkid = levellist[("m" + mid) + "n1"]; //sprite image tag 
+spawna.growth = levellist[("m" + mid) + "g1"]; //size increase of boss sprite 
+spawna.ystart = levellist[("m" + mid) + "y1"]; //y-position of boss 
+spawna.bossname = levellist[("m" + mid) + "b1"]; //display name of boss 
+if (levellist[("m" + mid) + "t1"] != undefined) { //the colour effect 
+    spawna.fx = levellist[("m" + mid) + "t1"]; 
+} else {
+    spawna.fx = 1; 
+} 
+/* repeat for spawnb, spawnc (without the boss attributes)... */
+```
+
+For the ascendance missions, the hp and kb scale with the number of ascents.
+
+```js
+spawna.hp = Math.round(levellist.mX1h1 * (1 + (ascends / 8))); //ascendant 
+spawna.kb = levellist.mX1k1; 
+spawnb.hp = Math.round(levellist.mX1h2 * (1 + (ascends / 7))); //red snail 
+spawnb.kb = Math.round(levellist.mX1k2 * (1 + (ascends / 5))); 
+spawnc.hp = Math.round(levellist.mX1h3 * (1 + (ascends / 6))); //alishar 
+spawnc.kb = Math.round(levellist.mX1k3 * (1 + (ascends / 5)));
+```
+
+Now the spawning code initiates. First, the boss is spawned if there is one:
+```js
+if (spawna.odds == 13370) { 
+    /* ... create mob (named "bossmob" here) with the attributes {
+        _x:646, _y:spawna.ystart, hpx:1, bossres:5, dieframes:20, 
+        kb:spawna.kb, xvel:spawna.speed, experience:spawna.xp, 
+        hp:spawna.hp, fx:spawna.fx } */
+    if (missionid == "X1") { //current mission is the ascendance test 
+        bossmob._x = 400; // move ascendant to the center of the screen 
+    } 
+    bossmob._xscale = spawna.growth; //resize the boss sprite 
+    bossmob._yscale = spawna.growth; 
+    hpbar_mc.gotoAndStop(2); //show hp bar 
+    hpbar_mc.bossname_txt.text = spawna.bossname; 
+    this.bossfight = true; 
+}
+```
+
+The boss (and all mobs) are spawned with some attributes: `_x` and `_y` are the x and y position of the mob on the screen, `hpx` is the HP multiplier (used in score calculation -- see Scoring), `dieframes` is unused(?), `xvel` is the speed of the mob (in pixels/frame), and `experience`, `hp`, `fx` should be obvious. `bossres` (boss resistance?) seems to be a damage spreadout feature, which makes the boss gradually absorb arrows rather than all at once.
+
+```js
+for ([each arrow on screen]) { 
+    if ([arrow should hit this mob]) { 
+        if (bossres == undefined) { 
+            _root.assassin = false; //non-boss hit, don't award the Assassin badge
+        } 
+        if (bossres > 1) { 
+            bossres--; 
+        } else { 
+            if (bossres != undefined) { 
+                bossres = 3; 
+            } 
+            /* [... perform arrow calculations] */
+        }
+    }
+}
+```
+
+`bossres` is decremented once per touching arrow per frame, and is reset to 3 when a hit check is calculated. This makes the boss only process every 1 in 3 arrow hit detections -- it can take up to 3 frames for an arrow to inflict damage on a boss. You might notice this effect on smaller bosses, ex. shooting a full Hurricane at Athena Pierce will cause some arrows to pass through her.
+
+Now the main spawning code is run on every frame:
+
+```js
+if ([current mission is not ascension]) { 
+    spawndrought = spawndrought + spawncount; 
+} 
+chaos = Math.random() * 1000; //Math.random() returns a number 0 <= n < 1 
+spawnplz = spawna.odds - spawndrought; 
+if (chaos >= spawnplz) { 
+    spawndrought = 0; 
+    /* ... create mob (named "mob" here) with the attributes {
+        _x:668, _y:235, hpx:1, dieframes:20, kb:spawna.kb, 
+        xvel:spawna.speed, experience:spawna.xp, 
+        hp:spawna.hp, fx:spawna.fx } */ 
+    if ((Math.random() > 0.992) && (spawna.fx == 1)) { // randomly make mob stronger 
+        mob.experience = mob.experience * 3; 
+        mob.speed = mob.speed * 1.6; //doesn't work as intended -- should've been named xvel 
+        mob.hp = mob.hp * 1.5; 
+        mob.hpx = mob.hpx * 1.5; 
+    } 
+} else { 
+    spawnplz = spawnb.odds - (2 * this.spawndrought); 
+    if (chaos >= spawnplz) { 
+        /* ... do the same as above, but with spawnb, and spawning at _x=666 */ 
+    } else { 
+        spawnplz = spawnc.odds - (3 * this.spawndrought); 
+        if (chaos >= spawnplz) { 
+            /* ... do the same as above, but with spawnc, and spawning at _x=666 */ 
+        } 
+    } 
+}
+```
+
+The code checks the spawn conditions of each mob sequentially, mob A, then B, then C. Once a mob is spawned, no further checks are done (only one mob spawns per frame). The check is done by checking if `chaos`, a random number between 0 and 1000, generated once at the start, is greater than `spawnplz`, which is the spawn odds minus `spawndrought` (2x and 3x spawndrought for mob B and mob C). If `chaos >= spawnplz` in any of these checks, then that mob is spawned.
+
+Mobs have a 0.8% chance to have 1.5 times the normal HP and give 3 times the EXP, if it has no colour transformation (= all mobs except in the radioactive missions and the ascension stage). Note that `hpx` is changed with the hp. The mob's speed is supposed to change as well, but the speed attribute is modified instead of `xvel` -- whoops.
+
+`spawndrought` doesn't increase very fast, at a rate of 0.05 each frame, or 1 every 20 frames. Hunterstory runs at 30 FPS, so it takes 0.666 seconds to increase the spawn chance by 0.1%, or 6.666 seconds to increase it by 1%. These numbers are roughly doubled in a boss mission, after the boss is killed. `spawndrought` is always at least `spawncount` during the checks, since it's incremented before the checks are done.
+
+Notice that bosses or empty mobs have their spawn rates way higher than the maximum value for `chaos`, so they won't spawn under normal conditions. Theoretically, `spawndrought` could increase enough to lower `spawnplz` within the range of `chaos`, but this needs `spawndrought` to be greater than 1000, and at that point the value of `spawnplz` for any normal mob would be below 0 and its check would always pass. Since there's no missions without a normal mob, bosses can't ever spawn naturally. :(
