@@ -1,13 +1,38 @@
 body {
-font-family: Calibri, Helvetica, Arial;
+    font-family: Calibri, Helvetica, Arial;
 }
 
 .formula {
-font-family: "Courier New", Monospace;
+    font-family: "Courier New", Monospace;
 }
 
 pre {
-font-family: Calibri, Helvetica, Arial;
+    background-color: #2e3b4e; /* Dark background for code block */
+    color: #f8f8f2; /* Light text color */
+    font-family: 'Courier New', monospace; /* Monospace font for code */
+    padding: 10px; /* Padding around the code */
+    margin: 10px 0; /* Margin around the code block */
+    border-radius: 8px; /* Rounded corners for a soft look */
+    border: 1px solid #4e5a6c; /* Subtle border around the block */
+    overflow-x: auto; /* Horizontal scrolling if needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+  
+/* Styling for inline code (inside text) */
+code {
+    background-color: #e0e0e0; /* Light gray background for inline code */
+    color: #d04e4e; /* Slightly contrasting color for inline code */
+    padding: 0.2em 0.4em; /* Padding around inline code */
+    border-radius: 4px; /* Rounded corners */
+}
+  
+/* Optional: Styling for syntax highlighting using Prism.js or similar libraries */
+pre code {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit; /* Inherit color from the parent pre block */
 }
 
 table {
