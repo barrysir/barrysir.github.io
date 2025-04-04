@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout pageTitle="Ongeki">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        h1 {
+            font-family: 'Noto Sans', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            font-size: 3em;
+            margin-top: 20px;
+        }
+        .card {
+            margin: 0px 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        ul {
+            list-style-position: inside;
+            margin: 0;
+            padding-left: 30px;
+        }
+        a {
+            color: #4a4;
+        }
+        a:hover {
+            color: hsl(200, 43%, 47%);
+        }
+    </style>
+	
+    <h1>Barry's Ongeki Page</h1>
+    <div style="width: 100%; max-width: 650px;">
+        <div class="card">
+            <ul style="padding: 0px">
+                <li><a href="/ongeki/reiwa/index.html">Mirror of reiwa.f5.si - Ongeki Best Frame Image Generator</a><ul>
+                    <li><a href="https://gist.github.com/barrysir/5eed1c886540ebd9f8ee3e99243f0336">Kamaitachi to reiwa.f5.si script</a></li>
+                </ul></li>
+            </ul>
+        </div>
+    </div>
+</Layout>
