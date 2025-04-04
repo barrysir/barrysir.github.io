@@ -1,0 +1,56 @@
+---
+const pageTitle = "Home Page";
+import '@assets/hunterstory/hunterstory.css';
+
+// const pages = import.meta.glob('./*.astro');
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{pageTitle}</title>
+	</head>
+	<body>
+    <table>
+        <tr valign="top"><td width="20%">
+        <b>Navigation</b><br>
+        <ul style="list-style-type: none; padding-left: 10px; font-size: 15px;">
+            <li><a href="home.html">Home</a></li>
+            <li>        <dl>
+                <dt><a href="hunterstoryguide.html">Hunterstory Guide</a></dt>
+                <dd><a href="missionssranks.html">Missions &amp; S-Ranks</a></dd>
+                <dd><a href="skillguide.html">Skill Guide</a></dd>
+                <dd><a href="badges.html">Badges</a></dd>
+                <dd><a href="shops.html">Shops</a></dd>
+                <dd><a href="expcalculator.html">EXP Calculator</a></dd>
+                <dd><a href="tips.html">Tips</a></dd>
+                <dd><a href="glitches.html">Glitches</a></dd>
+                <dd><a href="cheats.html">Cheats</a></dd>
+                </dl>
+            </li>
+            <li><a href="creditschangelog.html">Credits/Changelog</a></li>
+            <li><a href="..">&lt;&lt;&lt; Back</a></li>
+        </ul>
+        </td>
+
+        <td>
+            <h3>{pageTitle}</h3>
+            <hr>
+		    <slot />
+        </td>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		box-sizing: border-box;
+	}
+</style>

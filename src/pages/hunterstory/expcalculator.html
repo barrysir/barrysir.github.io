@@ -1,0 +1,479 @@
+<html>
+
+
+<head>
+<title>EXP Calculator</title>
+<!-- CSS is cool :P -->
+<link rel="stylesheet" type="text/css" href="css.css"/>
+</head>
+
+<body>
+<table>
+<tr valign="top"><td width="21%">
+<b>Navigation</b><br>
+<small><a href="home.html">Home</a></small><br>
+<dl>
+<dt><small><a href="hunterstoryguide.html">Hunterstory Guide</a></small></dt>
+<dd><small><a href="missionssranks.html">Missions &amp; S-Ranks</a></small></dd>
+<dd><small><a href="skillguide.html">Skill Guide</a></small></dd>
+<dd><small><a href="badges.html">Badges</a></small></dd>
+<dd><small><a href="shops.html">Shops</a></small></dd>
+<dd><small><a href="expcalculator.html">EXP Calculator</a></small></dd>
+<dd><small><a href="tips.html">Tips</a></small></dd>
+<dd><small><a href="glitches.html">Glitches</a></small></dd>
+<dd><small><a href="cheats.html">Cheats</a></small></dd>
+</dl>
+<small><a href="creditschangelog.html">Credits/Changelog</a></small>
+</td>
+
+<td>
+<h3>EXP Calculator</h3>
+<script>
+	function calc1()
+	{
+		var level = new Number(input.value)
+		if (isNaN(level))
+		{
+			var out_text = "Very funny."
+		}
+		else if (level%1!=0 || level<0)
+		{
+			var out_text = "Invalid input."
+		}
+		else
+		{
+			var out_text = "Level "+level+": "+Math.floor(level*(level+1)*(level+2)/2)+" EXP"
+		}
+		output.innerHTML = out_text
+	}
+
+	function calc2()
+	{
+		var level = new Number(input2.value)
+		var level2 = new Number(input3.value) - 1
+		if (isNaN(level) || isNaN(level2))
+		{
+			var out_text = "Very funny."
+		}
+		else if (level%1!=0 || level2%1!=0 || level<0 || level2<0 || level>=level2)
+		{
+			var out_text = "Invalid input."
+		}
+		else
+		{
+			var out_text = "Level "+level+" to Level "+level2+": "+Math.floor((level2-level+1)*(level+level2+2)*(level*level+level+level2*(level2+3))/8)+" EXP" //Wolfram Alpha FTW
+		}
+		output2.innerHTML = out_text
+	}
+</script>
+Level: <input type="text" id="input" />
+<button onclick="calc1()">Calculate</button>
+<div id="output"></div>
+<br><br>
+Level <input type="text" id="input2" /> to <input type="text" id="input3" />
+<button onclick="calc2()">Calculate</button>
+<div id="output2"></div>
+<br>
+<table border="1" bordercolor="#888" cellspacing="0" style="border-collapse:collapse;border-color:rgb(136,136,136);border-width:1px">
+<tbody>
+<tr>
+<td style="width:60px;height:19px"> <b>Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+<td style="width:60px;height:19px"><b> Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+<td style="width:60px;height:19px"><b> Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+<td style="width:60px;height:19px"><b> Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+<td style="width:60px;height:19px"><b> Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+<td style="width:60px;height:19px"><b> Level</b></td>
+<td style="width:60px;height:19px"><b> EXP</b></td>
+</tr>
+<tr>
+<td>1</td>
+<td>3 </td>
+<td>28 </td>
+<td>12180 </td>
+<td>55 </td>
+<td>87780 </td>
+<td>82 </td>
+<td>285852 </td>
+<td>109 </td>
+<td>665445 </td>
+<td>136 </td>
+<td>1285608 </td>
+</tr>
+<tr>
+<td>2</td>
+<td>12 </td>
+<td>29 </td>
+<td>13485 </td>
+<td>56 </td>
+<td>92568 </td>
+<td>83 </td>
+<td>296310 </td>
+<td>110 </td>
+<td>683760 </td>
+<td>137 </td>
+<td>1313967 </td>
+</tr>
+<tr>
+<td>3</td>
+<td>30 </td>
+<td>30 </td>
+<td>14880 </td>
+<td>57 </td>
+<td>97527 </td>
+<td>84 </td>
+<td>307020 </td>
+<td>111 </td>
+<td>702408 </td>
+<td>138 </td>
+<td>1342740 </td>
+</tr>
+<tr>
+<td>4</td>
+<td>60 </td>
+<td>31 </td>
+<td>16368 </td>
+<td>58 </td>
+<td>102660 </td>
+<td>85 </td>
+<td>317985 </td>
+<td>112 </td>
+<td>721392 </td>
+<td>139 </td>
+<td>1371930 </td>
+</tr>
+<tr>
+<td>5</td>
+<td>105 </td>
+<td>32 </td>
+<td>17952 </td>
+<td>59 </td>
+<td>107970 </td>
+<td>86 </td>
+<td>329208 </td>
+<td>113 </td>
+<td>740715 </td>
+<td>140 </td>
+<td>1401540 </td>
+</tr>
+<tr>
+<td>6</td>
+<td>168 </td>
+<td>33 </td>
+<td>19635 </td>
+<td>60 </td>
+<td>113460 </td>
+<td>87 </td>
+<td>340692 </td>
+<td>114 </td>
+<td>760380 </td>
+<td>141 </td>
+<td>1431573 </td>
+</tr>
+<tr>
+<td>7</td>
+<td>252 </td>
+<td>34 </td>
+<td>21420 </td>
+<td>61 </td>
+<td>119133 </td>
+<td>88 </td>
+<td>352440 </td>
+<td>115 </td>
+<td>780390 </td>
+<td>142 </td>
+<td>1462032 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">8</td>
+<td style="width:60px;height:19px">360</td>
+<td style="width:60px;height:19px">35</td>
+<td style="width:60px;height:19px">23310</td>
+<td style="width:60px;height:19px">62</td>
+<td style="width:60px;height:19px">124992</td>
+<td style="width:60px;height:19px">89</td>
+<td style="width:60px;height:19px">364455</td>
+<td style="width:60px;height:19px">116</td>
+<td style="width:60px;height:19px">800748</td>
+<td style="width:60px;height:19px">143</td>
+<td style="width:60px;height:19px">1492920</td>
+</tr>
+<tr>
+<td>9</td>
+<td>495 </td>
+<td>36 </td>
+<td>25308 </td>
+<td>63 </td>
+<td>131040 </td>
+<td>90 </td>
+<td>376740 </td>
+<td>117 </td>
+<td>821457 </td>
+<td>144 </td>
+<td>1524240 </td>
+</tr>
+<tr>
+<td>10</td>
+<td>660 </td>
+<td>37 </td>
+<td>27417 </td>
+<td>64 </td>
+<td>137280 </td>
+<td>91 </td>
+<td>389298 </td>
+<td>118 </td>
+<td>842520 </td>
+<td>145 </td>
+<td>1555995 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">11</td>
+<td style="width:60px;height:19px">858</td>
+<td style="width:60px;height:19px">38</td>
+<td style="width:60px;height:19px">29640</td>
+<td style="width:60px;height:19px">65</td>
+<td style="width:60px;height:19px">143715</td>
+<td style="width:60px;height:19px">92</td>
+<td style="width:60px;height:19px">402132 </td>
+<td style="width:60px;height:19px">119 </td>
+<td style="width:60px;height:19px">863940 </td>
+<td style="width:60px;height:19px">146 </td>
+<td style="width:60px;height:19px">1588188 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">12</td>
+<td style="width:60px;height:19px">1092 </td>
+<td style="width:60px;height:19px">39 </td>
+<td style="width:60px;height:19px">31980 </td>
+<td style="width:60px;height:19px">66 </td>
+<td style="width:60px;height:19px">150348 </td>
+<td style="width:60px;height:19px">93 </td>
+<td style="width:60px;height:19px">415245 </td>
+<td style="width:60px;height:19px">120 </td>
+<td style="width:60px;height:19px">885720 </td>
+<td style="width:60px;height:19px">147 </td>
+<td style="width:60px;height:19px">1620822 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">13</td>
+<td style="width:60px;height:19px">1365 </td>
+<td style="width:60px;height:19px">40 </td>
+<td style="width:60px;height:19px">34440 </td>
+<td style="width:60px;height:19px">67 </td>
+<td style="width:60px;height:19px">157182 </td>
+<td style="width:60px;height:19px">94 </td>
+<td style="width:60px;height:19px">428640 </td>
+<td style="width:60px;height:19px">121 </td>
+<td style="width:60px;height:19px">907863 </td>
+<td style="width:60px;height:19px">148 </td>
+<td style="width:60px;height:19px">1653900 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">14</td>
+<td style="width:60px;height:19px">1680 </td>
+<td style="width:60px;height:19px">41 </td>
+<td style="width:60px;height:19px">37023 </td>
+<td style="width:60px;height:19px">68 </td>
+<td style="width:60px;height:19px">164220 </td>
+<td style="width:60px;height:19px">95 </td>
+<td style="width:60px;height:19px">442320 </td>
+<td style="width:60px;height:19px">122 </td>
+<td style="width:60px;height:19px">930372 </td>
+<td style="width:60px;height:19px">149 </td>
+<td style="width:60px;height:19px">1687425 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">15</td>
+<td style="width:60px;height:19px">2040 </td>
+<td style="width:60px;height:19px">42 </td>
+<td style="width:60px;height:19px">39732 </td>
+<td style="width:60px;height:19px">69 </td>
+<td style="width:60px;height:19px">171465 </td>
+<td style="width:60px;height:19px">96 </td>
+<td style="width:60px;height:19px">456288 </td>
+<td style="width:60px;height:19px">123 </td>
+<td style="width:60px;height:19px">953250 </td>
+<td style="width:60px;height:19px">150 </td>
+<td style="width:60px;height:19px">1721400 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">16</td>
+<td style="width:60px;height:19px">2448 </td>
+<td style="width:60px;height:19px">43 </td>
+<td style="width:60px;height:19px">42570 </td>
+<td style="width:60px;height:19px">70 </td>
+<td style="width:60px;height:19px">178920 </td>
+<td style="width:60px;height:19px">97 </td>
+<td style="width:60px;height:19px">470547 </td>
+<td style="width:60px;height:19px">124 </td>
+<td style="width:60px;height:19px">976500 </td>
+<td style="width:60px;height:19px">151 </td>
+<td style="width:60px;height:19px">1755828 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">17</td>
+<td style="width:60px;height:19px">2907 </td>
+<td style="width:60px;height:19px">44 </td>
+<td style="width:60px;height:19px">45540 </td>
+<td style="width:60px;height:19px">71 </td>
+<td style="width:60px;height:19px">186588 </td>
+<td style="width:60px;height:19px">98 </td>
+<td style="width:60px;height:19px">485100 </td>
+<td style="width:60px;height:19px">125 </td>
+<td style="width:60px;height:19px">1000125 </td>
+<td style="width:60px;height:19px">152 </td>
+<td style="width:60px;height:19px">1790712 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">18</td>
+<td style="width:60px;height:19px">3420 </td>
+<td style="width:60px;height:19px">45 </td>
+<td style="width:60px;height:19px">48645 </td>
+<td style="width:60px;height:19px">72 </td>
+<td style="width:60px;height:19px">194472 </td>
+<td style="width:60px;height:19px">99 </td>
+<td style="width:60px;height:19px">499950 </td>
+<td style="width:60px;height:19px">126 </td>
+<td style="width:60px;height:19px">1024128 </td>
+<td style="width:60px;height:19px">153 </td>
+<td style="width:60px;height:19px">1826055 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">19</td>
+<td style="width:60px;height:19px">3990 </td>
+<td style="width:60px;height:19px">46 </td>
+<td style="width:60px;height:19px">51888 </td>
+<td style="width:60px;height:19px">73 </td>
+<td style="width:60px;height:19px">202575 </td>
+<td style="width:60px;height:19px">100 </td>
+<td style="width:60px;height:19px">515100 </td>
+<td style="width:60px;height:19px">127 </td>
+<td style="width:60px;height:19px">1048512 </td>
+<td style="width:60px;height:19px">154 </td>
+<td style="width:60px;height:19px">1861860 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">20</td>
+<td style="width:60px;height:19px">4620 </td>
+<td style="width:60px;height:19px">47 </td>
+<td style="width:60px;height:19px">55272 </td>
+<td style="width:60px;height:19px">74 </td>
+<td style="width:60px;height:19px">210900 </td>
+<td style="width:60px;height:19px">101 </td>
+<td style="width:60px;height:19px">530553 </td>
+<td style="width:60px;height:19px">128 </td>
+<td style="width:60px;height:19px">1073280 </td>
+<td style="width:60px;height:19px">155 </td>
+<td style="width:60px;height:19px">1898130 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">21</td>
+<td style="width:60px;height:19px">5313 </td>
+<td style="width:60px;height:19px">48 </td>
+<td style="width:60px;height:19px">58800 </td>
+<td style="width:60px;height:19px">75 </td>
+<td style="width:60px;height:19px">219450 </td>
+<td style="width:60px;height:19px">102 </td>
+<td style="width:60px;height:19px">546312 </td>
+<td style="width:60px;height:19px">129 </td>
+<td style="width:60px;height:19px">1098435 </td>
+<td style="width:60px;height:19px">156 </td>
+<td style="width:60px;height:19px">1934868 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">22</td>
+<td style="width:60px;height:19px">6072 </td>
+<td style="width:60px;height:19px">49 </td>
+<td style="width:60px;height:19px">62475 </td>
+<td style="width:60px;height:19px">76 </td>
+<td style="width:60px;height:19px">228228 </td>
+<td style="width:60px;height:19px">103 </td>
+<td style="width:60px;height:19px">562380 </td>
+<td style="width:60px;height:19px">130 </td>
+<td style="width:60px;height:19px">1123980 </td>
+<td style="width:60px;height:19px">157 </td>
+<td style="width:60px;height:19px">1972077 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">23</td>
+<td style="width:60px;height:19px">6900 </td>
+<td style="width:60px;height:19px">50 </td>
+<td style="width:60px;height:19px">66300 </td>
+<td style="width:60px;height:19px">77 </td>
+<td style="width:60px;height:19px">237237 </td>
+<td style="width:60px;height:19px">104 </td>
+<td style="width:60px;height:19px">578760 </td>
+<td style="width:60px;height:19px">131 </td>
+<td style="width:60px;height:19px">1149918 </td>
+<td style="width:60px;height:19px">158 </td>
+<td style="width:60px;height:19px">2009760 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">24</td>
+<td style="width:60px;height:19px">7800 </td>
+<td style="width:60px;height:19px">51 </td>
+<td style="width:60px;height:19px">70278 </td>
+<td style="width:60px;height:19px">78 </td>
+<td style="width:60px;height:19px">246480 </td>
+<td style="width:60px;height:19px">105 </td>
+<td style="width:60px;height:19px">595455 </td>
+<td style="width:60px;height:19px">132 </td>
+<td style="width:60px;height:19px">1176252 </td>
+<td style="width:60px;height:19px">159 </td>
+<td style="width:60px;height:19px">2047920 </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">25</td>
+<td style="width:60px;height:19px">8775 </td>
+<td style="width:60px;height:19px">52 </td>
+<td style="width:60px;height:19px">74412 </td>
+<td style="width:60px;height:19px">79 </td>
+<td style="width:60px;height:19px">255960 </td>
+<td style="width:60px;height:19px">106 </td>
+<td style="width:60px;height:19px">612468 </td>
+<td style="width:60px;height:19px">133 </td>
+<td style="width:60px;height:19px">1202985 </td>
+<td style="width:60px;height:19px">160 </td>
+<td style="width:60px;height:19px">2086560 </td>
+</tr>
+<tr>
+<td>26</td>
+<td style="width:60px;height:19px">9828 </td>
+<td style="width:60px;height:19px">53 </td>
+<td style="width:60px;height:19px">78705 </td>
+<td style="width:60px;height:19px">80 </td>
+<td style="width:60px;height:19px">265680 </td>
+<td style="width:60px;height:19px">107 </td>
+<td style="width:60px;height:19px">629802 </td>
+<td style="width:60px;height:19px">134 </td>
+<td style="width:60px;height:19px">1230120 </td>
+<td style="width:60px;height:19px"></td>
+<td style="width:60px;height:19px"> </td>
+</tr>
+<tr>
+<td style="width:60px;height:19px">27</td>
+<td style="width:60px;height:19px">10962 </td>
+<td style="width:60px;height:19px">54 </td>
+<td style="width:60px;height:19px">83160 </td>
+<td style="width:60px;height:19px">81 </td>
+<td style="width:60px;height:19px">275643 </td>
+<td style="width:60px;height:19px">108 </td>
+<td style="width:60px;height:19px">647460 </td>
+<td style="width:60px;height:19px">135 </td>
+<td style="width:60px;height:19px">1257660 </td>
+<td style="width:60px;height:19px"></td>
+<td style="width:60px;height:19px"> </td>
+</tr>
+</tbody>
+</table>
+<br>
+
+It takes <span style="line-height:normal">82,940,760 EXP to get to Level 160 from Level 1.</span></font>
+
+
+</body>
+</html>
