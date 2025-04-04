@@ -5,11 +5,48 @@ title: Skill Guide
 
 ---
 
+<style>
+{`
+    .class-1 { color:rgb(102,102,102); }
+    .class-2 { color:#ea9999; }
+    .class-3 { color:#76a5af; }
+    .class-4 { color: #7f6000; }
+    .class-5 { color: #444444; }
+    .class-6 { color: #ff0000; }
+
+    .prereq {color: #0000ff; }
+    .best-path {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .repeat-skill {
+        background-color:rgb(204,204,204);
+    }
+    .required-skill {
+        color: #0000ff;
+    }
+
+    /* Stop bullet point lists from adding extra padding */
+    p:has(+ ul) {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    p + ul, ul + p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    /* But a back door to add it in for the Best Path elements */
+    p:has(> .best-path) {
+        margin-top: 16px;
+    }
+`}
+</style>
+
+
 ## Skills List
 
-<b style="color:rgb(102,102,102);font-size:medium;line-height:1.6">1st job</b>  
-   
-<strong>Bow Mastery (Max Level: 15)</strong>  
+### <span class="class-1">1st Job</span>
+**Bow Mastery (Max Level: 15)**  
 Raises minimum damage.  
 Level 0: Min damage is 10% of Max damage.  
 Level 1: Min damage is 13% of Max damage.  
@@ -28,12 +65,12 @@ Level 13: Min damage is 53% of Max damage.
 Level 14: Min damage is 57% of Max damage.  
 Level 15: Min damage is 60% of Max damage.  
    
-<strong>Bronze Arrows (no maximum, initial max level: 10)</strong>  
+**Bronze Arrows (no maximum, initial max level: 10)**  
 At Level 1, you get 2 bronze arrows which do 125% damage.  
 At Level 10, you get 20 bronze arrows which do 125% damage.  
 At Level X, you get 2X bronze arrows which do 125% damage.  
    
-<strong>Critical Force (Max Level: 10)</strong>  
+**Critical Force (Max Level: 10)**  
 Level 0: 10% critical chance, 100% critical  
 Level 1: 10% critical chance, 110% critical  
 Level 2: 10% critical chance, 120% critical  
@@ -46,28 +83,32 @@ Level 8: 10% critical chance, 180% critical
 Level 9: 10% critical chance, 190% critical  
 Level 10: 10% critical chance, 200% critical  
 <i>The chance that an arrow does a critical hit depends on the skill Critical Chance.</i>  
+
+**Double Shot (no maximum, initial max level: 10)**  
+Level 1: 7 MP used, 61% damage (x2 arrows)  
+Level 10: 16 MP used, 115% damage (x2 arrows)  
+Level X: X+6 MP used, 6X+55% damage (x2 arrows)  
    
-<strong>Double Shot (no maximum, initial max level: 10)</strong>  
-Level 1: 7 MP used, 61% damage(x2 arrows)  
-Level 10: 16 MP used, 115% damage(x2 arrows)  
-Level X: X+6 MP used, 6X+55% damage(x2 arrows)  
-   
-<strong>Arrow Blow (no maximum)</strong>  
+**Arrow Blow (no maximum, initial max level: 10)**  
 Level 1: 5 MP used, 131% damage  
 Level 10: 14 MP used, 275% damage  
 Level X: X+4 MP used, 16X+115% damage  
    
-<font color="#ea9999" size="3"><b>2nd job</b></font> - Level 15  
+### <span class="class-2">2nd Job</span> - Level 15
    
-<strong>Bow Booster (no maximum, initial max level: 20)</strong>  
-For every skill point you put in, the time it takes to charge lessens.  
+**Bow Booster (no maximum, initial max level: 20)**  
+Level 1: Full power in 1.08 seconds.  
+Level 20: Full power in 0.74 seconds.  
+Level X: Full power in `round(lencharge) / 100` seconds.  
+`lencharge = 200 / (1.8 + 0.045 * sp)`  
+`sp = X + (SP put into Advanced Booster)`  
    
-<strong>Steel Arrows (no maximum, initial max level: 15)</strong> <font color="#0000ff"><b>(Required: Level 10 Bronze Arrows)</b></font>  
+**Steel Arrows (no maximum, initial max level: 15) <span class="prereq">(Required: Level 10 Bronze Arrows)</span>**  
 At Level 1, you get 2 steel arrows which do 150% damage  
 At Level 15, you get 30 steel arrows which do 150% damage  
 At Level X, you get 2X steel arrows which do 150% damage  
    
-<strong>Critical Chance (Max Level: 10)</strong>  
+**Critical Chance (Max Level: 10)**  
 Level 0: 10% chance, Critical 200% damage  
 Level 1: 14% chance, Critical 200% damage  
 Level 2: 18% chance, Critical 200% damage  
@@ -79,45 +120,48 @@ Level 7: 38% chance, Critical 200% damage
 Level 8: 42% chance, Critical 200% damage  
 Level 9: 46% chance, Critical 200% damage  
 Level 10: 50% chance, Critical 200% damage  
-<i>The damage that a critical hit does depends on the skill Critical Force.</i>  
-  
-<strong>Iron Arrow (no maximum, initial max level: 20)</strong>  
+<i>The damage that a critical hit does depends on the skill Critical Force.</i>
+
+**Iron Arrow (no maximum, initial max level: 20)**  
 Level 1: 10 MP, 64% damage, piercing  
 Level 20: 20 MP, 140% damage, piercing  
 Level X: 10+(X/2) MP, 4X+60% damage, piercing  
    
-<strong>Arrow Bomb (no maximum, initial max level: 20)</strong>  
+**Arrow Bomb (no maximum, initial max level: 20)**  
 Level 1: 10 MP, 24% splash damage  
 Level 20: 20 MP, 100% splash damage  
 Level X: 10+(X/2) MP, 4X+20% splash damage  
 
-  
+
    
-<font color="#76a5af" size="3"><b>3rd job</b></font> - Level 30  
+### <span class="class-3">3rd Job</span> - Level 30  
    
-<strong>MP Recovery (no maximum, initial max level: 15)</strong>  
-Level 1: Increases recovery by 3.6 MP/second  
-Level 15: Increases recovery by 11.5 MP/second  
-Level X: Increases recovery by 21X/40 MP/second  
+**MP Recovery (no maximum, initial max level: 15)**  
+Level 1: Recharge an extra 0.525 MP/second  
+Level 15: Recharge an extra 7.875 MP/second  
+Level X: Recharge +0.525 MP/second more for every level  
+
+The full formula:
+> `0.1 * round( levelmpr + mprecovery )` MP/second  
+> `levelmpr = 36 + 0.003 * (level-1) * (100*ascents+level+402)`  
+> `mprecovery = 0.525 * X`  
   
-(There is a Base MP Recovery which rises on every level, but I'm not able to get the formula.)  
-  
-<strong>Fury Arrows (no maximum, initial max level: 20)</strong> <b><font color="#0000ff">(Required: Level 15 Steel Arrows)</font></b>  
+**Fury Arrows (no maximum, initial max level: 20) <span class="prereq">(Required: Level 15 Steel Arrows)</span>**  
 At Level 1, you get 2 Fury Arrows which do 175% damage.  
 At Level 20, you get 40 Fury Arrows which do 175% damage.  
 At Level X, you get 2X Fury Arrows which do 175% damage.  
   
-<strong>Power Arrow (no maximum, initial max level: 30)</strong>  
+**Power Arrow (no maximum, initial max level: 30)**  
 Level 1: 14 MP, 162% damage  
 Level 30: 28 MP, 510% damage  
 Level X: X/2+13.5 MP, 12X+150% damage  
    
-<strong>Strafe (no maximum, initial max level: 30)</strong>  
+**Strafe (no maximum, initial max level: 30)**  
 Level 1: 16 MP, 42% damage (x4 arrows)  
 Level 30: 30.5 MP, 100% damage (x4 arrows)  
 Level X: X/2+15.5 MP, 2X+40% damage (x4 arrows)  
    
-<strong>Power Knockback (Max Level: 20)</strong>  
+**Power Knockback (Max Level: 20)**  
 Level 1: 25 MP, 200% damage, knockback 7 Pixels  
 Level 2: 25 MP, 200% damage, knockback 10 Pixels  
 Level 3: 25 MP, 200% damage, knockback 13 Pixels  
@@ -140,9 +184,9 @@ Level 19: 25 MP, 200% damage, knockback 61 Pixels
 Level 20: 25 MP, 200% damage, knockback 64 Pixels  
    
    
-<font size="3"><b style="background-color:rgb(255,255,255)"><font color="#7f6000">4th job</font></b> - Level 70</font>  
+### <span class="class-4">4nd Job</span> - Level 70
    
-<strong>Bow Expertise (Max Level: 20)</strong>   <font color="#0000ff"><b>(Required: Level 15 Bow Mastery)</b></font>  
+**Bow Expertise (Max Level: 20) <span class="prereq">(Required: Level 15 Bow Mastery)</span>**  
 Level 1: Min damage is 62% of Max damage, +1 weapon attack  
 Level 2: Min damage is 63% of Max damage, +2 weapon attack  
 Level 3: Min damage is 65% of Max damage, +3 weapon attack  
@@ -164,22 +208,22 @@ Level 18: Min damage is 87% of Max damage, +18 weapon attack
 Level 19: Min damage is 89% of Max damage, +19 weapon attack  
 Level 20: Min damage is 90% of Max damage, +20 weapon attack  
    
-<strong>Pierce Arrow (no Maximum, initial max level: 30)</strong> <font color="#0000ff"><b>(Required: Level 20 Iron Arrow)</b></font>  
+**Pierce Arrow (no Maximum, initial max level: 30) <span class="prereq">(Required: Level 20 Iron Arrow)</span>**  
 Level 1: 26 MP used, 73% damage, piercing  
 Level 30: 55 MP used, 450% damage, piercing  
 Level X: X+25 MP used, 13X+60% damage, piercing  
    
-<strong>B-55 Arrow (no Maximum</strong><strong >, initial max level: 30</strong><strong >)</strong>  
+**B-55 Arrow (no Maximum, initial max level: 30)**  
 Level 1: 16 MP used, 110% damage + 46% damage every second  
 Level 30: 45 MP used, 400% damage + 220% damage every second  
 Level X: X+15 MP used, 10X+100% damage + 6X+40% damage every second  
    
-<strong>Hurricane (no Maximum</strong><strong >, initial max level: 30</strong><strong >)</strong>  
+**Hurricane (no Maximum, initial max level: 30)**  
 Level 1: 21 MP used, 42% damage (hits 4 monsters)  
 Level 30: 50 MP used, 100% damage (hits 8 monsters)  
 Level X: X+20 MP used, 2X+40% damage (hits 4+(X-1)/6 (up to 10) monsters)  
    
-<strong>Dragon Pulse (Max Level: 30)</strong> (<font color="#0000ff"><b>Required: Level 20 Power Knockback)</b></font>  
+**Dragon Pulse (Max Level: 30) <span class="prereq">(Required: Level 20 Power Knockback)</span>**  
 Level 1: 40 MP used, 350% damage, knocks back monster 15 pixels(effect is 1/3 on bosses)  
 Level 2: 40 MP used, 350% damage, knocks back monster 20 pixels(effect is 1/3 on bosses)  
 Level 3: 40 MP used, 350% damage, knocks back monster 25 pixels(effect is 1/3 on bosses)  
@@ -211,29 +255,33 @@ Level 28: 40 MP used, 350% damage, knocks back monster 150 pixels(effect is 1/3 
 Level 29: 40 MP used, 350% damage, knocks back monster 155 pixels(effect is 1/3 on bosses)  
 Level 30: 40 MP used, 350% damage, knocks back monster 160 pixels(effect is 1/3 on bosses)  
    
-<font color="#ffffff" size="3" style="background-color:rgb(0,0,0)"><b>5th job</b></font> - Level 120  
+### <span class="class-5">5th Job</span> - Level 120
    
-<strong>Advanced Booster (no maximum, initial max level: 30)</strong> (<font color="#0000ff"><b>Required: Level 20 Bow Booster)</b></font>  
-I don't know the formula for the Booster skills.  
+**Advanced Booster (no maximum, initial max level: 30) <span class="prereq">(Required: Level 20 Bow Booster)</span>**  
+Level 1: Full power in 0.73 seconds. <i>(assuming Bow Booster is at level 20)</i>  
+Level 30: Full power in 0.49 seconds.  
+Level X: Full power in `round(lencharge) / 100` seconds.  
+`sp = X + (SP put into Bow Booster)`  
+`lencharge = 200 / (1.8 + 0.045 * sp)`  
    
-<strong>Judgement Arrows (no maximum</strong><strong >, initial max level: 30</strong><strong >)</strong> (<font color="#0000ff" ><b>Required: Level 20 Fury Arrows)</b></font>  
+**Judgement Arrows (no maximum, initial max level: 30) <span class="prereq">(Required: Level 20 Fury Arrows)</span>**  
 Level 1: you get 2 Judgement Arrows which do 200% damage.  
 Level 30: you get 60 Judgement Arrows which do 200% damage.  
 Level X: you get 2X Judgement Arrows which do 200% damage.  
    
-<strong>B-55 Spike (no maximum</strong><strong >, initial max level: 30</strong><strong >)</strong>  
+**B-55 Spike (no maximum, initial max level: 30)**  
 Level 1: 42 MP used, 27% damage + 22% damage every second  
 Level 30: 100 MP used, 85% damage + 80% damage every second  
 Level X: 2X+40 MP used, 2X+25% damage + 2X+20% damage every second  
    
-<strong>Skip Arrow (no maximum</strong><strong >, initial max level: 30</strong><strong >)</strong>  
+**Skip Arrow (no maximum, initial max level: 30)**  
 Level 1: 17 MP used, 48% damage  
 Level 30: 46 MP used, 280% damage  
 Level X: X+16 MP used, 8X+40% damage  
    
-<font color="#ff0000" size="3"><b>6th job</b></font>  
+### <span class="class-6">6th Job</span> - Level 160
    
-<strong>Go Outside/Ascend (Max Level: 11)</strong>  
+**Go Outside/Ascend (Max Level: 11)**  
 Level 1: 14% chance of making new friends  
 Level 2: Passive Vitamin D recovery  
 Level 3: MP -0; Calories -200  
@@ -251,104 +299,105 @@ At Level 11, allows you to ascend for 99,999,999 mesos in the Curiousity Shop.
 ---
 
 
-<u><font size="4">Skill Guide</font></u>  
-<u>  
-</u>  
+## Skill Guide
+
 <u>A few terms needed to know:</u>  
 (Keep Going) - Keep Adding SP into that skill until next job  
 (MPR - x) - Add SP until that skill costs you MP Recovery/sec - x to use.  
-Repeat - Repeat the series of highlighted moves until next job.  
-Repeat until ____ - Repeat until the _____ part is fulfilled.  
-(skill name)(x) - the x stands for what level it should be.  
   
-<u><b><font color="#999999" size="3">1st job</font></b></u>  
-<font>1. Double Arrow(1)  
-2. Bow Mastery(15)</font>  
-3. Critical Force(10)  
-4. Bronze Arrows(Max)  
-5. Double Arrow(Keep Going)  
+### <span class="class-1">1st Job</span>  
+1\. Double Arrow (1)  
+2\. Bow Mastery (15)  
+3\. Critical Force (10)  
+4\. Bronze Arrows (Max)  
+5\. Double Arrow (Keep Going)  
    
-<font><u><b style="background-color:rgb(255,255,255)">Best Path</b></u></font>  
-Bow Mastery(15)  
-Critical Force(10)  
-Bronze Arrows(Keep Going)  
+<span class="best-path">Best Path</span>  
+Bow Mastery (15)  
+Critical Force (10)  
+Bronze Arrows (Keep Going)  
 
 ---
 
-<u><b><font color="#ea9999" size="3">2nd job</font></b></u>  
-<font>1. Iron Arrow(1)  
-2. Bow Booster(20)</font>  
-3. Critical Chance(10)  
-<font>4. Steel Arrows(15)  
-</font>5. <font>Iron Arrow(Keep Going)</font>  
-   
-<u><font><b style="background-color:rgb(255,255,255)">Best Path</b></font></u>  
-1. Critical Chance(10)  
-2. Iron Arrow(20)  
-3. Steel Arrows(15)  
-4. Bow Booster(Keep Going)   
+### <span class="class-2">2nd Job</span>   
+1\. Iron Arrow (1)  
+2\. Bow Booster (20)  
+3\. Critical Chance (10)  
+4\. Steel Arrows (15)  
+5\. Iron Arrow (Keep Going)  
+
+<span class="best-path">Best Path</span>  
+1\. Critical Chance (10)  
+2\. Iron Arrow (20)  
+3\. Steel Arrows (15)  
+4\. Bow Booster (Keep Going)   
 
 ---
 
-<u><b><font color="#45818e" size="3">3rd job</font></b></u>  
-1. MP Recovery(Max)  
-Repeat until Fury Arrows is Maxed  
-<span style="background-color:rgb(204,204,204)">Iron Arrow(Until MPR -5)</span>  
-<span style="background-color:rgb(204,204,204)">Fury Arrows(everything left)</span>  
-<u>Repeat</u>  
-<font style="background-color:rgb(204,204,204)">Iron Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Strafe/Power Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Power Knockback(for excess SP)</font>  
-   
-<u><font style="background-color:rgb(255,255,255)"><b>Best Path</b></font></u>  
-<font style="background-color:rgb(255,255,255)">1. MP Recovery(Max)</font>  
-2. Fury Arrows(20)  
+### <span class="class-3">3rd Job</span>   
+1\. MP Recovery (Max)  
+Repeat until Fury Arrows is Maxed:
+ * <span class="repeat-skill">Iron Arrow (Until MPR -5)</span>  
+ * <span class="repeat-skill">Fury Arrows (everything left)</span>  
+
+Repeat:
+ * <font class="repeat-skill">Iron Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Strafe/Power Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Power Knockback (for excess SP)</font>   
+  
+<span class="best-path">Best Path</span>  
+1\. MP Recovery (Max)  
+2\. Fury Arrows (20)  
 
 ---
 
-<u><b><font color="#783f04" size="3">4th job</font></b></u>  
-1. Bow Expertise(20)  
-<u>Repeat</u>  
-<font style="background-color:rgb(204,204,204)">Hurricane(Until MPR - 5)</font>  
-<font style="background-color:rgb(204,204,204)">Pierce Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">B-55 Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Strafe/Power Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Power Knockback/Dragon Roar(for excess SP)</font>  
-   
-<u><font style="background-color:rgb(255,255,255)"><b>Best Path</b></font></u>  
-1. Bow Expertise(20)  
-2. Hurricane(Max)  
-<hr />
-<u><b><font color="#444444" size="3" style="background-color:rgb(255,255,255)">5th job</font></b></u>  
-1. Advanced Booster(30)  
-2. Judgement Arrows(30)  
-<u>Repeat</u>  
-<font style="background-color:rgb(204,204,204)">Skip Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">B-55 Spike(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Hurricane(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Pierce Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">B-55 Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Strafe/Power Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Arrow Blow/Double Shot(for excess SP)</font>  
-<font style="background-color:rgb(204,204,204)">Power Knockback/Dragon Roar(for more excess SP)</font>  
-   
-<u><font style="background-color:rgb(255,255,255)"><b>Best Path</b></font></u>  
-<font style="background-color:rgb(255,255,255)">Advanced Booster(Max)</font>  
-Judgement Arrows(Max)  
-<hr />
-<u><font color="#ff0000" size="3" style="background-color:rgb(255,255,255)"><b>6th job</b></font></u>  
-1. Go Outside(10)  
+### <span class="class-4">4th Job</span>   
+1\. Bow Expertise (20)  
+Repeat:  
+ * <font class="repeat-skill">Hurricane (Until MPR - 5)</font>   
+ * <font class="repeat-skill">Pierce Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">B-55 Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Strafe/Power Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Power Knockback/Dragon Roar (for excess SP)</font>   
+  
+<span class="best-path">Best Path</span>  
+1\. Bow Expertise (20)  
+2\. Hurricane (Max)  
 
-<u>Repeat until Level 160</u>  
-<font style="background-color:rgb(204,204,204)">Skip Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">B-55 Spike(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Hurricane(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Pierce Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">B-55 Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Strafe/Power Arrow(Until MPR -5)</font>  
-<font style="background-color:rgb(204,204,204)">Arrow Blow/Double Shot(for excess SP)</font>  
-<font style="background-color:rgb(204,204,204)">Power Knockback/Dragon Roar(for more excess SP)</font>  
-<font style="background-color:rgb(255,255,255)">2. Go Outside(11)</font>  
-   
-<u><font style="background-color:rgb(255,255,255)"><b>Best Path</b></font></u>  
-1. Go Outside(11)  
+---
+
+### <span class="class-5">5th Job</span>   
+1\. Advanced Booster (30)  
+2\. Judgement Arrows (30)  
+Repeat:  
+ * <font class="repeat-skill">Skip Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">B-55 Spike (Until MPR -5)</font>   
+ * <font class="repeat-skill">Hurricane (Until MPR -5)</font>   
+ * <font class="repeat-skill">Pierce Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">B-55 Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Strafe/Power Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Arrow Blow/Double Shot (for excess SP)</font>   
+ * <font class="repeat-skill">Power Knockback/Dragon Roar (for more excess SP)</font>   
+  
+<span class="best-path">Best Path</span>  
+Advanced Booster (Max)  
+Judgement Arrows (Max)  
+
+---
+
+### <span class="class-6">6th Job</span>    
+1\. Go Outside (10)  
+Repeat until Level 160:  
+ * <font class="repeat-skill">Skip Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">B-55 Spike (Until MPR -5)</font>   
+ * <font class="repeat-skill">Hurricane (Until MPR -5)</font>   
+ * <font class="repeat-skill">Pierce Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">B-55 Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Strafe/Power Arrow (Until MPR -5)</font>   
+ * <font class="repeat-skill">Arrow Blow/Double Shot (for excess SP)</font>   
+ * <font class="repeat-skill">Power Knockback/Dragon Roar (for more excess SP)</font>
+
+2\. Go Outside (11)
+
+<span class="best-path">Best Path</span>  
+1\. Go Outside (11)  
