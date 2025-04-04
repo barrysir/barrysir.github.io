@@ -9,3 +9,12 @@ font-family: "Courier New", Monospace;
 pre {
 font-family: Calibri, Helvetica, Arial;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid rgb(136,136,136);
+    padding: 2px;
+}
