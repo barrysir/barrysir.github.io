@@ -1,0 +1,17 @@
+---
+
+layout: ./_mdx_layout.astro
+title: EXP Calculator
+
+---
+
+{ /* Maybe this should just be a .astro file lol */ }
+
+import ExpCalculator from "./_exp_calc.astro";
+import ExpTable from "./_exp_table.astro";
+
+<ExpCalculator />
+<br />
+<ExpTable cols={6} toplevel={160} />
+
+It takes 82,940,760 EXP to get from Level 1 to Level 160.
