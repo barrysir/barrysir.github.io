@@ -1,0 +1,7 @@
+---
+
+const { href, title, curr } = Astro.props;
+
+---
+
+{(title == curr) ? <span>{title}</span> : <a href={href}>{title}</a>}

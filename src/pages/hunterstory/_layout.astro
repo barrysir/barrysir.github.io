@@ -1,5 +1,6 @@
 ---
 import '@assets/hunterstory/hunterstory.css';
+import Navlink from './_navlink.astro';
 
 interface Props {
   pageTitle: string; // Making 'title' a mandatory string prop
@@ -23,18 +24,19 @@ const { pageTitle } = Astro.props;
     <table>
         <tr valign="top"><td width="230px">
         <b>Navigation</b><br>
-        <ul style="list-style-type: none; padding-left: 10px; font-size: 15px;">
-            <li><a href="home.html">Home</a></li>
-            <li>        <dl>
-                <dt><a href="hunterstoryguide.html">Hunterstory Guide</a></dt>
-                <dd><a href="missionssranks.html">Missions &amp; S-Ranks</a></dd>
-                <dd><a href="skillguide.html">Skill Guide</a></dd>
-                <dd><a href="badges.html">Badges</a></dd>
-                <dd><a href="shops.html">Shops</a></dd>
-                <dd><a href="expcalculator.html">EXP Calculator</a></dd>
-                <dd><a href="tips.html">Tips</a></dd>
-                <dd><a href="glitches.html">Glitches</a></dd>
-                <dd><a href="cheats.html">Cheats</a></dd>
+        <ul style="list-style-type: none; padding-left: 10px; font-size: 15px;">                    
+            <li><Navlink href="home.html" title="Home" /></li>
+            <li>
+                <dl>
+                <dt><Navlink curr={pageTitle} href="hunterstoryguide.html" title="Hunterstory Guide" /></dt>
+                <dd><Navlink curr={pageTitle} href="missionssranks.html" title="Missions & S-Ranks" /></dd>
+                <dd><Navlink curr={pageTitle} href="skillguide.html" title="Skill Guide" /></dd>
+                <dd><Navlink curr={pageTitle} href="badges.html" title="Badges" /></dd>
+                <dd><Navlink curr={pageTitle} href="shops.html" title="Shops" /></dd>
+                <dd><Navlink curr={pageTitle} href="expcalculator.html" title="EXP Calculator" /></dd>
+                <dd><Navlink curr={pageTitle} href="tips.html" title="Tips" /></dd>
+                <dd><Navlink curr={pageTitle} href="glitches.html" title="Glitches" /></dd>
+                <dd><Navlink curr={pageTitle} href="cheats.html" title="Cheats" /></dd>
                 </dl>
             </li>
             <li><a href="creditschangelog.html">Credits/Changelog</a></li>
