@@ -7,7 +7,17 @@ title: Savefile Data
 
 ### Location
 
-Hunterstory stores its savedata in a file named `keylog1337.sol`. 
+Hunterstory stores its savedata in a file named `keylog1337.sol`.  
+Depending on what you use to run flash games, you may have to search up yourself where your save data gets placed. But here are some examples:  
+
+ * General .sol file folder:
+   * **Windows**: `%appdata%/Macromedia/Flash Player/#SharedObjects/(random numbers and letters)/`
+   * **Mac**: `~/Library/Preferences/Macromedia/Flash Player/#SharedObjects/(random numbers and letters)/`
+   * **Linux**: `~/.macromedia/Flash_Player/#SharedObjects/(random numbers and letters)/`
+ * This folder will contain a bunch of other folders. Where your Hunterstory save data will be depends on what you're playing on. 
+   * If you're playing on a standalone flash player, it'll most likely be in `localhost`
+   * If you're playing on Kongregate, then it'll be in `chat.kongregate.com` or `kongregate.com`
+   * etc.
 
 ### Savefile Description
 
@@ -22,65 +32,75 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
 <table>
 <thead>
     <tr>
-      <td>
-        <b>Name</b>
-      </td>
-      <td>
-        <b>Description</b>
-      </td>
+      <td><b>Name</b></td>
+      <td><b>Type</b></td>
+      <td><b>Description</b></td>
     </tr>
 </thead>
   <tbody>
     <tr>
       <td>curmissions</td>
+      <td>Number</td>
       <td>The total number of missions started</td>
     </tr>
     <tr>
       <td>alltotalpoints</td>
+      <td>Number</td>
       <td>Total points earned over all missions (in contrast with totalscore)</td>
     </tr>
     <tr>
       <td>alltotaldamage</td>
+      <td>Number</td>
       <td>Total damage inflicted</td>
     </tr>
     <tr>
       <td>alltotalwins</td>
+      <td>Number</td>
       <td>Total missions won</td>
     </tr>
     <tr>
       <td>alltotallosses</td>
+      <td>Number</td>
       <td>Total missions lost </td>
     </tr>
     <tr>
       <td>alltotalquits</td>
+      <td>Number</td>
       <td>Total missions quit</td>
     </tr>
     <tr>
       <td>alltotalarrows</td>
+      <td>Number</td>
       <td>Total arrows fired (todo: more info about iron arrow, etc.)</td>
     </tr>
     <tr>
       <td>alltotalcrits</td>
+      <td>Number</td>
       <td>Total crits</td>
     </tr>
     <tr>
       <td>canzakum</td>
+      <td>Boolean</td>
       <td>Whether or not <font color="#0000ff">The Call Of Zakum</font> is unlocked</td>
     </tr>
     <tr>
       <td>totalscore</td>
+      <td>Number</td>
       <td>Total points earned over unique missions (in contrast with alltotalpoints)</td>
     </tr>
     <tr>
       <td>skillpoints</td>
+      <td>Number</td>
       <td>Number of skill points available</td>
     </tr>
     <tr>
       <td>skillpage</td>
+      <td>Number</td>
       <td>Job level. 1 = 1st job, 6 = 6th job</td>
     </tr>
     <tr>
       <td>rank<font color="#999999">(num)</font>sp</td>
+      <td>Number</td>
       <td>
         Number of skill points allocated to <font color="#999999">(num)</font>th job skills.  
         Only rank1sp - rank6sp is used, though keys for 7, 8, 9, and 9000 exist (seems like Crovy had big plans.)
@@ -88,13 +108,15 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
     </tr>
     <tr>
       <td>crovykicksbutt</td>
+      <td>Boolean</td>
       <td>Easter egg value. Set to false to earn the Cheater secret badge.</td>
     </tr>
     <tr>
       <td>sk<font color="#999999">(1-25)</font></td>
+      <td>Number</td>
       <td>
         Number of skill points allotted to each skill.  
-        
+        <br />
         <table><tr><td>1</td><td>Bow Mastery</td><td>8</td><td>Steel Arrows</td><td>15</td><td>Power Knockback</td><td>22</td><td>Skip Arrow</td></tr><tr><td>2</td><td>Critical Force</td><td>9</td><td>Iron Arrow</td><td>16</td><td>Bow Expertise</td><td>23</td><td>Judgement Arrows</td></tr><tr><td>3</td><td>Arrow Blow</td><td>10</td><td>Arrow Bomb</td><td>17</td><td>Dragon Pulse</td><td>24</td><td>Go Outside</td></tr><tr><td>4</td><td>Double Shot</td><td>11</td><td>Fury Arrows</td><td>18</td><td>Hurricane</td><td>25</td><td>B55 S.PIKE</td></tr><tr><td>5</td><td>Critical Chance</td><td>12</td><td>Power Arrow</td><td>19</td><td>Pierce Arrow</td><td></td><td></td></tr><tr><td>6</td><td>Bronze Arrows</td><td>13</td><td>Strafe</td><td>20</td><td>B-55 Arrow</td><td></td><td></td></tr><tr><td>7</td><td>Bow Booster</td><td>14</td><td>MP Recovery</td><td>21</td><td>Advanced Booster</td><td></td><td></td></tr></table>
       </td>
     </tr>
@@ -106,21 +128,25 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
         sk<font color="#999999">(num)</font>perf  
         sk<font color="#999999">(num)</font>kb  
       </td>
+      <td>Number</td>
       <td>
-        numbers for <a>skills</a>
-        Not all these values are defined.
+        Pre-calculated values for skills (e.g. Arrow blow does "131"% damage and costs "5" MP.)  
+        Values are added depending on the skill, for example, Bronze Arrows would define `..arrows` but not any of the others.
       </td>
     </tr>
     <tr>
       <td>bowwindup</td>
+      <td>Number</td>
       <td>Used in bow power calculations. Should be equal to `0.6 + 0.015 * (Bow Booster + Advanced Bow Booster)`.</td>
     </tr>
     <tr>
       <td>bowwindmax</td>
+      <td>Number</td>
       <td>Used in bow power calculations. Always equal to 20.</td>
     </tr>
     <tr>
       <td>scoredisptype</td>
+      <td>Number</td>
       <td>
         Score display type. 1 for points, 2 for % S-Rank, 3 for %S.  
         Can be set even if you don't have the proper item from the Curiosity Shop.
@@ -128,14 +154,17 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
     </tr>
     <tr>
       <td>level</td>
+      <td>Number</td>
       <td>Current level.</td>
     </tr>
     <tr>
       <td>exptotal</td>
+      <td>Number</td>
       <td>Current EXP.</td>
     </tr>
     <tr>
       <td>exptnl</td>
+      <td>Number</td>
       <td>
         EXP needed to next level.  
         Changing this only affects the menu statistics; it gets recalculated during missions anyways.
@@ -143,122 +172,136 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
     </tr>
     <tr>
       <td>mp</td>
+      <td>Number</td>
       <td>Current Max MP.</td>
     </tr>
     <tr>
       <td>mprecov</td>
+      <td>Number</td>
       <td>Current MP recovery rate.</td>
     </tr>
     <tr>
       <td>dex</td>
+      <td>Number</td>
       <td>
         Current DEX, used in damage calculations. Generally equal to `level * 5` plus whatever DEX ascension points.
       </td>
     </tr>
     <tr>
       <td>watk</td>
+      <td>Number</td>
       <td>Current Weapon Attack.</td>
     </tr>
     <tr>
       <td>mesos</td>
+      <td>Number</td>
       <td>Current mesos.</td>
     </tr>
     <tr>
       <td>damage</td>
+      <td>Number</td>
       <td>Helper variable for calculating damage, equal to `Math.round((watk * dex)/20)`.</td>
     </tr>
     <tr>
       <td>damagex</td>
+      <td>Number</td>
       <td>The x-position of the last monster that died. Doesn't seem to serve any purpose besides this.</td>
     </tr>
     <tr>
       <td>damagey</td>
+      <td>Number</td>
       <td>The y-position of the last monster that died. Doesn't seem to serve any purpose besides this.</td>
     </tr>
     <tr>
       <td>mshots</td>
+      <td>Number</td>
       <td>Number of arrows shot during the last mission. Used for badges.</td>
     </tr>
     <tr>
       <td>mhit</td>
+      <td>Number</td>
       <td>Number of arrows that landed during the last mission.</td>
     </tr>
     <tr>
       <td>pageoffset</td>
+      <td>Number</td>
       <td>Current mission page.</td>
     </tr>
     <tr>
       <td>bowpageoffset</td>
+      <td>Number</td>
       <td>Current shop page.</td>
     </tr>
     <tr>
       <td>badgepageoffset </td>
+      <td>Number</td>
       <td>Current badge page.</td>
     </tr>
     <tr>
-      <td>
-        badgex<font color="#999999">(1-4)</font>  
-        badgex<font color="#999999">(1-4)</font>r
-      </td>
-      <td>
-        Secret badge keys.  
-        badgex1,badgex2 always exist; badgex3 and badgex4 are only created when you unlock them.  
-        the -r variables are also only created on unlock.
-      </td>
-    </tr>
-    <tr>
-      <td>hasxbadge</td>
-      <td>
-         If true, displays the button to access the Secret Badge menu.  
-         Set to true if badgex1 or badgex2 is true.
-      </td>
-    </tr>
-    <tr>
       <td>sbadgepageoffset</td>
+      <td>Number</td>
       <td>Current secret badge page.</td>
     </tr>
     <tr>
+      <td>hasxbadge</td>
+      <td>Boolean</td>
+      <td>
+        If true, displays the button to access the Secret Badge menu.  
+        Set to true if badgex1 or badgex2 is true.
+      </td>
+    </tr>
+    <tr>
       <td>yourbow</td>
+      <td>Number</td>
       <td>Bow you're currently using. Counts incrementally up: 1 for the Beginner's Bow, 45 for Crovy's Lonely Bow, 46,47,... into the secret bows.</td>
     </tr>
     <tr>
       <td>lastver</td>
+      <td>Number</td>
       <td>
         Last version of Hunterstory that you played (that this save file was generated on).  
-        For Hunterstory 1.27A, will be
+        For Hunterstory 1.27A, will be 122.  
         Crovy used this to do save file updates (ex. if your savefile was on lastver&lt;101, Crovy would update the savefile with the ascension keys.)
       </td>
     </tr>
     <tr>
       <td>spresets</td>
+      <td>Number</td>
       <td>Total SP resets used. Used to calculate SP reset cost; starts at 1.</td>
     </tr>
     <tr>
       <td>bowsbought</td>
+      <td>Number</td>
       <td>Bows bought during this ascension, used for badges.</td>
     </tr>
     <tr>
       <td>totalgp</td>
+      <td>Number</td>
       <td>Total grade points.</td>
     </tr>
     <tr>
       <td>badgeviews</td>
+      <td>Number</td>
       <td>Number of times the Badge menu has been viewed, used for badges.</td>
     </tr>
     <tr>
       <td>dmggfx</td>
+      <td>Boolean</td>
       <td>Options &gt; Maple Damage Numbers, true=on, false=off.</td>
     </tr>
     <tr>
       <td>oops</td>
+      <td>Boolean</td>
       <td>Options &gt; Accident Prevention, true=on, false=off.</td>
     </tr>
     <tr>
       <td>keyconfig<font color="#999999">(1-6)</font></td>
+      <td>Number</td>
       <td>Skill ID to activate for the given key. QWEASD in order.</td>
     </tr>
     <tr>
       <td>keyconfig<font color="#999999">(1-6)</font>skno</td>
+      <td>String</td>
       <td>keyconfig, but padded with zeros into a 2-character string. [research this more]</td>
     </tr>
     <tr>
@@ -269,16 +312,19 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
         spbonus  
         dexbonus  
       </td>
+      <td>Number</td>
       <td>Allocated ascension bonus points.</td>
     </tr>
     <tr>
       <td>ascents</td>
+      <td>Number</td>
       <td>Total ascents. (Listed as fame on the main screen.)</td>
     </tr>
     <tr>
       <td>
         badge<font color="#999999">(1-99)</font>
       </td>
+      <td>Boolean</td>
       <td>
         Booleans for badge unlocks. badge87-badge99 aren't used.  
         Maybe badge97-99 were originally used for secret badges.
@@ -288,10 +334,24 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
       <td>
         badge<font color="#999999">(1-99)</font>r
       </td>
+      <td>Boolean</td>
       <td>Booleans signaling this is a newly unlocked badge (so it gets highlighted red on the badge screen).</td>
     </tr>
     <tr>
+      <td>
+        badgex<font color="#999999">(1-4)</font>  
+        badgex<font color="#999999">(1-4)</font>r
+      </td>
+      <td>Boolean</td>
+      <td>
+        Secret badge keys.  
+        badgex1,badgex2 always exist; badgex3 and badgex4 are only created when you unlock them.  
+        the -r variables are also only created on unlock.
+      </td>
+    </tr>
+    <tr>
       <td>dynascoretype</td>
+      <td>Boolean</td>
       <td>
         Whether you've bought the % Score Display upgrade from the [Curiosity Shop](shops.html#the-curiosity-shop).
       </td>
@@ -299,16 +359,26 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
     <tr>
       <td>
         valid83  
-        lastMission83
       </td>
+      <td>Boolean</td>
       <td>
         Used for badge 83, Progressive Ascent.  
         If valid83 is true when you ascend, it awards the badge.  
-        lastMission83 keeps track of the ID of the last mission you've taken on.  
+      </td>
+    </tr>
+    <tr>
+      <td>
+        lastMission83
+      </td>
+      <td>Number</td>
+      <td>
+        Used for badge 83, Progressive Ascent.  
+        Keeps track of the ID of the last mission you've taken on.  
       </td>
     </tr>
     <tr>
       <td>specialty</td>
+      <td>Number</td>
       <td>Set to a random number between 0 and 16777216. Unknown purpose.</td>
     </tr>
     <tr>
@@ -320,41 +390,50 @@ Here's a listing of every key within Hunterstory's .sol file, and a description 
         safetyDexbonus  
         safetyAscents  
       </td>
+      <td>Number</td>
       <td>Saves bonus point allocation before the [Honour](badges.html#about-honour) patch.</td>
     </tr>
     <tr>
       <td>gradess</td>
+      <td>Number</td>
       <td>Points for an S-rank of the last-played mission.</td>
     </tr>
     <tr>
       <td>gradesf</td>
+      <td>Boolean</td>
       <td>Whether you failed the last-played mission.</td>
     </tr>
     <tr>
       <td>missionid</td>
+      <td>Number</td>
       <td>Mission ID of the last-played mission.</td>
     </tr>
     <tr>
       <td>mmiss</td>
+      <td>Number</td>
       <td>Number of arrows that missed during the last mission.</td>
     </tr>
     <tr>
       <td>
         missionscore<font color="#999999">(1-90)</font>
       </td>
+      <td>Number</td>
       <td>Score of the corresponding mission. Key does not exist for unplayed/failed missions.</td>
     </tr>
     <tr>
       <td>
         missiongrade<font color="#999999">(1-90)</font>
       </td>
+      <td>Number</td>
       <td>Grade on the mission. 1=S, 2=AAA, 3=AA, 4=A, 5=B, 6=C, 7=D. Key does not exist for unplayed/failed missions.</td>
     </tr>
     <tr>
       <td>experience</td>
+      <td>Number</td>
       <td>
         Incremented once each time you receive the "You will become (slightly) more experienced." message given by the [fortune cookie](shops.html#the-curiosity-shop). (No relation to EXP!)
       </td>
     </tr>
   </tbody>
+  
 </table>
