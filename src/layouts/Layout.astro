@@ -1,5 +1,5 @@
 ---
-const pageTitle = "Home Page";
+const { pageTitle, favicon } = Astro.props;
 ---
 
 <!doctype html>
@@ -7,7 +7,7 @@ const pageTitle = "Home Page";
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={favicon} />
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 		<title>{pageTitle}</title>
 	</head>
