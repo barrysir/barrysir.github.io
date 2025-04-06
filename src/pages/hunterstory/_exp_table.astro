@@ -13,6 +13,14 @@ function array_range(start, stop, step) {
     return c;
 }
 
+function array_step(start, step, count) {
+    let c = [];
+    for (let i=0; i<count; i++) {
+        c.push(start + i*step);
+    }
+    return c;
+}
+
 function array_length_n(n) {
     return Array.from({ length: n }, (_, i) => i);
 }
@@ -38,9 +46,15 @@ let totalRows = Math.ceil(toplevel/cols);
     <tbody>
         {array_length_n(totalRows).map((r) => (
             <tr>
-                {array_range(r+1, toplevel+1, totalRows).map((level) => (
-                    <td>{level}</td>
-                    <td>{formula(level)}</td>
+                {array_step(r+1, totalRows, cols).map((level) => (
+                    (level <= toplevel) 
+                        ? (
+                            <td>{level}</td>
+                            <td>{formula(level)}</td>
+                        ) : (
+                            <td></td>
+                            <td></td>
+                        )
                 ))}
             </tr>
         ))}
