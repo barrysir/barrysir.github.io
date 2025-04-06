@@ -9,4 +9,5 @@ export default defineConfig({
         remarkPlugins: [remarkHeadingId],
     },
     integrations: [mdx()],
+    site: 'https://barrysir.github.io',
 });
