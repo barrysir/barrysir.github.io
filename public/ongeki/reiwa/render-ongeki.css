@@ -1,0 +1,66 @@
+/* 事前描画(HTML) */
+#pre-render-area {
+    background: white url(images/bg_mesh.png) repeat;    
+}
+
+#img-header,
+#img-player-data,
+#img-best-title-txt,
+#img-new-title-txt {
+    color: black;
+}
+
+.img-plinfo-plate {
+    position: relative;
+    color: black;
+    margin: 10px;
+    width: 410px;
+    padding: 10px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    z-index: 1;
+    height: 68px;
+}
+
+.img-plinfo-plate::before {
+    content: "";
+    position: absolute;
+    background: linear-gradient(90deg, #84d8f7 0 2%, #e1f7ff 15% 85%, #84d8f7 98%);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    transform: skewX(-20deg);
+}
+
+#img-player-ratng-block {
+    position: relative;
+}
+
+#img-rating-additional {
+    position: absolute;
+    top: 75px;
+    left: -10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+}
+
+.img-score-bell {
+    position: absolute;
+    right: 5px;
+    padding: 1px 5px 1px 5px;
+    background-image: url("images/musicbg.png");
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    color: rgb(255, 223, 117);
+}
+
+#img-new {
+    display: none;
+}
+
+.lun {
+    background: linear-gradient(#f00, #fff, #f00);
+}
