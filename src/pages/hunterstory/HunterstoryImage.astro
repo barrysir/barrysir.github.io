@@ -1,0 +1,27 @@
+---
+const {src, alt, raw = false} = Astro.props;
+
+import { Image } from 'astro:assets';
+// const UserImage = import(`@assets/hunterstory/${src}`);
+// const UserImage = import(`../../assets/hunterstory/${src}`);
+const images = import.meta.glob<{ default: ImageMetadata }>("@assets/hunterstory/*");
+const key = `/src/assets/hunterstory/${src}`;
+if (!images[key]) {
+    throw new Error(`"${key}" does not exist in glob: "@assets/hunterstory/*", ${Object.keys(images)}`);
+}
+
+let userImage: ImageMetadata;
+if (raw) {
+    userImage = (await images[key]()).default;
+    if (!userImage.src) {
+        throw new Error(`Image didn't load ${key} ${Object.keys(userImage)}`);
+    }
+}
+
+---
+
+{ raw 
+    ? <img src={userImage.src} width={userImage.width} height={userImage.height} alt={alt} />
+    : <Image src={images[key]()} alt={alt} />
+}
+
