@@ -9,5 +9,18 @@ export default defineConfig({
         remarkPlugins: [remarkHeadingId],
     },
     integrations: [mdx()],
+    // not sure what this does, but they recommend to set it
     site: 'https://barrysir.github.io',
+    // since deploying on github pages, deploy static site
+    output: 'static',
+    build: {
+        // 1. hunterstory guide for example, want hunterstory/shops.mdx to generate as hunterstory/shops.html
+        // rather than hunterstory/shops/index.html
+        // 2. in ongeki/reiwa/index.html, i want it to generate as ongeki/reiwa/index.html
+        // and not ongeki/reiwa.html
+        // (1) - cannot use 'directory' option
+        // (2) - canont use 'file' option
+        // 'preserve' is the option i want (for now)
+        format: 'preserve',
+    },
 });
