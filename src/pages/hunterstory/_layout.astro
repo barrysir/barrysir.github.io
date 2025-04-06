@@ -8,6 +8,8 @@ interface Props {
 
 const { pageTitle } = Astro.props;
 
+import HunterFavicon from "@assets/hunterstory/favicon.png";
+
 // const pages = import.meta.glob('./*.astro');
 
 ---
@@ -17,7 +19,7 @@ const { pageTitle } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={HunterFavicon.src} />
 		<title>{pageTitle}</title>
 	</head>
 	<body>
