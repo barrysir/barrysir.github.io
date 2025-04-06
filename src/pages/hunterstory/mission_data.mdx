@@ -1,0 +1,102 @@
+---
+
+layout: ./_mdx_layout.astro
+title: Mission Data
+
+---
+
+When Hunterstory first boots up, the mission data object `levellist` is created and data is pumped into it line-by-line.
+
+Here's the raw mission data for Permanent Silly Level as an example:
+
+```js
+//mission id here is 89 levellist.m89name = "Permanent Silly Level";    
+//mission name levellist.m89r = 1200;                
+//GP unlock requirement 
+levellist.m89o1 = 13370;    // mob 1: //spawn rate (13370, boss) 
+levellist.m89s1 = 0.03;               //speed 
+levellist.m89x1 = 1600000;            //EXP 
+levellist.m89h1 = 37000000;           //HP 
+levellist.m89k1 = 200000;             //damage needed to knockback 
+levellist.m89y1 = 183;                //y-position of boss 
+levellist.m89g1 = 300;                //size increase of boss sprite 
+levellist.m89t1 = 3;                  //color transform -- this one makes it redder 
+levellist.m89b1 = "ULTRA KENTAURUS";  //boss title 
+levellist.m89n1 = "kentaurus";        //sprite image tag 
+levellist.m89o2 = 998;      // mob 2: //spawn rate 
+levellist.m89s2 = 4.9;                //speed 
+levellist.m89x2 = 200000;             //EXP 
+levellist.m89h2 = 3700000;            //HP 
+levellist.m89k2 = 42000;              //knockback 
+levellist.m89t2 = 3;                  //color transform -- also redder 
+levellist.m89n2 = "kentaurus";        //sprite image tag 
+levellist.m89o3 = 9999;     // mob 3: //spawn rate (9999, empty slot) 
+levellist.m89gs = 40000000000;        //S rank requirement
+```
+
+Each mission is identified by a mission ID (the "89" in the variable name), and composed of its mission name, GP requirement, and S rank requirement, plus 3 potential slots for mobs. A mob is defined by 6 attributes: its sprite name, spawn rate, speed (in pixels/frame), knockback threshold, HP, and EXP gain on death. Bosses get 3 more: the percentage to resize its sprite image, a y-position (for floating bosses), and a boss name to display below its HP bar. Spawn rate is represented backwards, ranging from 0 to 1000, with higher numbers meaning lower spawn rates -- 990 means a 1% spawn chance. Earlier missions have a spawn rate around 995; later missions tend to be around 980-990; rush missions are exactly 980 or below. If a mob slot is empty, its spawn rate is set to 9999; boss mobs have their spawn rate at 13370. Some mobs can have an extra t attribute, which links to a colour transform (tints them green/red/whatever) (See [Transforms](#transforms) below.)
+
+Missions are coloured on the mission select screen based on this data:
+ * if the first slot is a boss, it's coloured <span style="color: #0000FF">blue</span>
+ * if any mob has a spawn rate of 980 or below, it's coloured <span style="color: #FF0000">red</span>
+ * if the first mob slot is empty, (Placeholder for future mission) is filled in as the mission title
+
+The currently defined mission IDs are 1 through 90 (Green Snails Only to The Return of Zakum), and a special X1 mission ID for the ascendance test. Mission IDs aren't really significant outside of being a variable name used to get mission data, `_root.levellist[("m" + this.mid) + "o1"]`, and being used in the alternative %S score calculation: `[s-rank percentage] * this.mid`.
+
+#### Transforms
+
+Here's a table of the defined colour transforms (in RGBA). Each colour component is first scaled by the multiplier (multiplied by the multiplier then divided by 256), then its offset is added.
+
+<table xmlns="http://www.w3.org/1999/xhtml" border="1" cellpadding="3" style="border-collapse:collapse;border-color:rgb(136,136,136)" data-table-local-id="table-2">
+  <tbody>
+    <tr>
+      <th>Value</th>
+      <th>Multiplier</th>
+      <th>Offset</th>
+      <th>Overall effect</th>
+      <th>Use</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>--</td>
+      <td>--</td>
+      <td>No change</td>
+      <td>Default</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>(128,128,128,256)</td>
+      <td>(0,128,0,0)</td>
+      <td>Green tint</td>
+      <td>Missions 80 to 88, the radioactive missions</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>(102,102,102,256)</td>
+      <td>(153,0,0,0)</td>
+      <td>Red tint</td>
+      <td>Permanent Silly Level mobs, Red Snail in ascendance</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>(256,256,256,128)</td>
+      <td>(0,0,0,0)</td>
+      <td>Half-transparent</td>
+      <td>Alishar in the ascendance mission</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>(64,64,64,256)</td>
+      <td>(0,0,0,0)</td>
+      <td>Darker</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>(256,0,256,125)</td>
+      <td>(255,-255,0,0)</td>
+      <td>Transparent and red</td>
+      <td>The Ascendant in the ascendance mission</td>
+    </tr>
+  </tbody>
+</table>
