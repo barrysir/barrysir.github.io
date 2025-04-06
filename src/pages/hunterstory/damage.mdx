@@ -1,0 +1,92 @@
+---
+
+layout: ./_mdx_layout.astro
+title: Damage
+
+---
+
+<u>**tl;dr**</u>  
+Damage is based on DEX, Weapon Attack, and points put into Bow Mastery and Bow Expertise.
+
+<hr />
+
+We'll start at the final damage calculation and work our way up through the variables affecting it. When an arrow hits a mob, damage (or pain) is calculated as a random number between the min and max damage.
+
+```js
+var maxd = ((_root.my_so.data.damage * dx) * 0.01);
+var mind = 0;
+if (_root.my_so.data.sk16 > 0) {
+    mind = Math.round((((_root.my_so.data.sk16 * 1.5) + 60) * maxd) / 100);
+} else {
+    mind = Math.round(((_root.my_so.data.sk01 * 10 / 3 + 10) * maxd) / 100);
+}
+var pain = Math.round((Math.random() * (maxd - mind)) + mind);
+```
+
+ * `_root.my_so.data.sk01` is Bow Mastery, and we can see that it calculates the min damage as 10-60% of max damage, depending on skill level.
+ * `_root.my_so.data.sk16` is Bow Expertise, and its calculation ranges the min damage between 60-90% of max damage.
+ * `_root.my_so.data.damage` is the ultimate "hunter strength" value that gets scaled by all the factors seen here.
+ * `dx`, damage multiplier, is based on a value stored in each individual arrow (we'll get to it later).
+
+`_root.my_so.data.damage` has a simple formula based on DEX and Weapon Attack.
+
+```js
+_root.my_so.data.damage = Math.round((_root.my_so.data.dex * _root.my_so.data.watk) / 20);
+```
+
+DEX is easy too, you get 5 DEX per level and 5 DEX per bonus ascension point.
+
+```js
+var basedex = (_root.my_so.data.level * 5);
+var bonusdex = (_root.my_so.data.dexbonus * 5);
+dex = basedex + bonusdex
+```
+
+Weapon Attack is more interesting. Every normal bow works as expected, but the secret bows (Bow of Lost Souls and beyond) have a unique formula, which scales its weapon attack based on the number of mobs you've killed.
+
+```js
+if (_root.my_so.data.yourbow > 48) {
+    _root.my_so.data.watk = Math.round(Math.log(_root.my_so.data.alltotalkills / 5000) * _root.weaponlist[("w" + _root.my_so.data.yourbow) + "z"]);
+    if (_root.my_so.data.watk < 144) {
+        _root.my_so.data.watk = 144;
+    }
+} else {
+    _root.my_so.data.watk = _root.weaponlist[("w" + _root.my_so.data.yourbow) + "a"];
+}
+_root.my_so.data.watk = _root.my_so.data.watk + _root.my_so.data.sk16;
+```
+
+ * `Math.log` is the natural logarithm.
+ * `_root.my_so.data.sk16` again is Bow Expertise: 1 weapon attack per skill point.
+
+You need a minimum of 10,000 kills to unlock the Bow Of Lost Souls, but the scaling factor only equals 1 at 13,591 kills -- which means that it can actually reduce the bow's weapon attack sometimes (though it'll never go below 144). As of writing this I have 76224 kills and the Bloodthirsty Bow equipped (275 base weapon attack), which makes my weapon attack `Math.log(76224/5000)*275+20 = 769`, exactly what I see in my .sol file.
+
+Arrows are created with an inherent `dx` value stored within them:
+
+```
+arrowa_mc.duplicateMovieClip(("arrow" + i) + "_mc", _root.counter, {_x:18, _y:232, xvel:pxv, yvel:pyv, hangtime:0, _rotation:rot, justmade:1, dx:damagemult * comboAdd, st:_root.shottype, arrowid:i, arrowcode:_root.arrowcode});
+```
+
+`damagemult` is the base damage of the current skill being used (Strafe, Hurricane, etc.), recorded as a percentage (`damagemult=100` means a 1x multiplier). The skill damage then gets multiplied by `_root.specmult`, which is the arrow type currently being used (Steel Arrows, Fury Arrows, etc.)
+
+```js
+damagemult = 100
+if (_root.shottype == 2) {
+    damagemult = _root.my_so.data.sk03damage;
+    // ...
+}
+/* repeat for all skill types... */
+damagemult = damagemult * _root.specmult;
+```
+
+`comboAdd` is the damage multiplier based on combo:
+
+```js
+var comboAdd = 1;
+if ((oven_mc.maxcounter > 0) && (oven_mc.maxcounter <= 5)) {
+    oven_mc.combotime = oven_mc.combotime + (5 - oven_mc.maxcounter);
+    comboAdd = 1 + (oven_mc.combotime / 40);
+} else {
+    oven_mc.combotime = 0;
+}
+```
