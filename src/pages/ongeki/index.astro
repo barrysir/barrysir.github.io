@@ -1,4 +1,5 @@
 ---
+import ExactScoreCalculator from '@components/ongeki/ExactScoreCalculator.astro';
 import Layout from '../../layouts/OngekiLayout.astro';
 ---
 
@@ -37,16 +38,26 @@ import Layout from '../../layouts/OngekiLayout.astro';
         a:hover {
             color: hsl(200, 43%, 47%);
         }
+
+        /* styling card headers... sloppy, but idk */
+        h2 {
+            margin: 0px; 
+            margin-bottom: 10px;
+        }
     </style>
 	
     <h1>Ongeki</h1>
-    <div style="width: 100%; max-width: 650px;">
+    <div style="width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 10px;">
         <div class="card">
             <ul style="padding: 0px">
                 <li><a href="/ongeki/reiwa/index.html">Mirror of reiwa.f5.si - Ongeki Best Frame Image Generator</a><ul>
                     <li><a href="https://gist.github.com/barrysir/5eed1c886540ebd9f8ee3e99243f0336">Kamaitachi to reiwa.f5.si script</a></li>
                 </ul></li>
             </ul>
+        </div>
+        <div class="card">
+            <h2>Exact Score Calculator</h2>
+            <ExactScoreCalculator />
         </div>
     </div>
 </Layout>

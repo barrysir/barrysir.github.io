@@ -1,0 +1,116 @@
+<exact-score-calculator>
+    <div style="width: 200px">
+        <div class="form-row">
+            <label for="notes">Number of notes:</label>
+            <input class="notes input-sm" name="notes">
+        </div>
+        <div class="form-row">
+            <label for="bells">Number of bells:</label>
+            <input class="bells input-sm" name="bells">
+        </div>
+        <div class="form-row">
+            <label for="score">Desired score:</label>
+            <input class="score input-md" name="score">
+        </div>
+    </div>
+    <button class="calculate" type="button">Calculate</button>
+    <div class="output" style="font-size: 14px;"></div>    
+</exact-score-calculator>
+
+<style>
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-sm {
+        width: 50px;
+    }
+    .input-md {
+        width: 75px;
+    }
+</style>
+
+<script>
+    function positiveInt(value, zero_ok = false) {
+        let int = parseInt(value);
+        if (isNaN(int)) {
+            return null;
+        }
+        if (int < 0) {
+            return null;
+        }
+        if (!zero_ok && int == 0) {
+            return null;
+        }
+        return int;
+    }
+    function solve(N, B, S = 1000000, max_damage = 10) {
+        let solutions = [];
+
+        // Below this number of bells, it's not possible to achieve the score anymore
+        // max points + bell points < score
+        // 950000 + B'/B * 60000 < score
+        // B'/B * 60000 < score - 950000
+        // B' < B * (score - 950000) / 60000
+        // bells must be greater than this number
+        let minbells = Math.max(0, Math.ceil((S - 950000) / 60000 * B));
+        
+        for (let b = minbells; b <= B; b++) {
+            let bellscore = (b / B) * 60000;
+            
+            // Check range of nibbles which put score between score and score + 10*max_damage
+            // N'/(10*N) * 950000 + bellscore >= score
+            // N' >= (score - bellscore) / 950000 * 10*N
+            // N' <= (score + 10*max_damage - bellscore) / 950000 * 10*N
+            let minnibs = Math.max(0, Math.ceil((S - bellscore) / 950000 * 10 * N));
+            let maxnibs = Math.min(N*10, Math.floor((S + 10 * max_damage - bellscore) / 950000 * 10 * N));
+            
+            for (let n = minnibs; n <= maxnibs; n++) {
+                // with this bell score + note score, 
+                // check if there is a damage count that subtracts exactly to the score
+                let score = Math.round(n / (10 * N) * 950000 + bellscore);
+                let damage = Math.floor((score - S) / 10);
+                let rem = (score - S) % 10;
+                
+                if (rem !== 0) continue;
+                if (damage > max_damage) continue;
+                
+                solutions.push(
+                    `score ${n}/${N * 10} (-${N * 10 - n}), bells ${b}/${B} (-${B - b}), ${damage} damage`
+                );
+            }
+        }
+
+        return solutions;
+    }
+
+    class ExactScoreCalculator extends HTMLElement {
+        calculate() {
+            const notes = positiveInt(this.querySelector('.notes').value);
+            const bells = positiveInt(this.querySelector('.bells').value);
+            let score = positiveInt(this.querySelector('.score').value, true);
+            if (score > 1010000) { 
+                score = null;
+            }
+
+            let output = this.querySelector('.output');
+
+            if ((notes === null) || (bells === null) || (score === null)) {
+                output.innerText = "Invalid input.";
+                return;
+            }
+            
+            const solutions = solve(notes, bells, score);
+            const text = (solutions.length > 0) ? solutions.join('\n') : "No solutions";
+            output.innerText = text;
+        }
+
+        connectedCallback() {
+            const button = this.querySelector('.calculate');
+            button?.addEventListener('click', () => this.calculate());
+        }
+    }
+
+    customElements.define('exact-score-calculator', ExactScoreCalculator);
+</script>
