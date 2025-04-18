@@ -1,4 +1,4 @@
-const URLbase_jacket = "/ongeki/reiwa/musicjackets/";
+const URLbase_jacket = "/ongeki/jackets/";
 
 window.addEventListener("DOMContentLoaded", function () {
     // ユーザーID読み込み
