@@ -1,4 +1,4 @@
-import "./RatingCalculator.css";
+import styles from "./RatingCalculator.module.css";
 
 export function RatingCalculator() {
   function handleClick() {
@@ -13,21 +13,21 @@ export function RatingCalculator() {
   let textAreaBest, textAreaNew, textAreaRecent, resultText;
 
   return (
-    <>
-      <div class="container">
-        <div class="best-box">
+    <div class={styles.calc}>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="flex flex-col h-full">
           <label for="best">Best</label>
           <textarea id="best" ref={textAreaBest} placeholder="Enter best content here...">
           </textarea>
         </div>
 
-        <div class="right-column">
-          <div class="box">
+        <div class="flex flex-col gap-6">
+          <div class="flex flex-col flex-1">
             <label for="new">New</label>
             <textarea id="new" ref={textAreaNew} placeholder="Enter new content here...">
             </textarea>
           </div>
-          <div class="box">
+          <div class="flex flex-col flex-1">
             <label for="recent">Recent</label>
             <textarea id="recent" ref={textAreaRecent} placeholder="Enter recent content here...">
             </textarea>
@@ -35,10 +35,10 @@ export function RatingCalculator() {
         </div>
       </div>
 
-      <div class="button-container">
+      <div class="flex justify-center mt-8">
         <button type="button" onclick={handleClick}>Submit</button>
         <span ref={resultText}></span>
       </div>
-    </>
+    </div>
   );
 }

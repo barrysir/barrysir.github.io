@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import {remarkHeadingId} from 'remark-custom-heading-id';
 
 import solidJs from '@astrojs/solid-js';
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,5 +25,8 @@ export default defineConfig({
         // (2) - canont use 'file' option
         // 'preserve' is the option i want (for now)
         format: 'preserve',
+    },
+    vite: {
+        plugins: [tailwindcss()],
     },
 });
