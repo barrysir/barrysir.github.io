@@ -2,16 +2,23 @@ import type { Result } from "@components/utils";
 import { Err, Ok } from "@components/utils";
 import { computeRating } from "./ongeki";
 
+export type ParsedScore = {
+    level: number;
+    score: number | null;
+    allBreak: boolean;
+    fullBell: boolean;
+    multiplier: number | null;
+}
+
 export type Score = {
     level: number;
     score: number | null;
     allBreak: boolean;
     fullBell: boolean;
+    rating: number;
 }
 
-export type ScoreWithRating = Score & {rating: number};
-
-export function parseScore(text: string): Result<Score | undefined, string> {
+export function parseScore(text: string): Result<ParsedScore | undefined, string> {
     // remove comment
     text = text.replace(/\/\/.*$/, '');
     // trim whitespace
@@ -23,10 +30,22 @@ export function parseScore(text: string): Result<Score | undefined, string> {
         return Ok(undefined);
     }
 
+    const multRegex = /\b(?:x(\d+)|(\d+)x)\b$/;
+    const multMatch = text.match(multRegex);
+    let multiplier = null;
+    if (multMatch) {
+        multiplier = parseInt(multMatch[1] || multMatch[2]);
+        text = text.replace(multRegex, '').trim();
+        if (multiplier == 0) {
+            return Err("Cannot have a zero multiplier");
+        }
+    }
+
     const matches = text.match(/\d+(\.\d+)?/g);
     if (!matches || matches.length < 1) {
-        return Ok(undefined);
-        // return Err("Line contains no rating number");
+        return Err("Line contains no rating number");
+    } else if (matches.length > 2) {
+        return Err("Line contains too many numbers: possible parsing error");
     }
     const level = parseFloat(matches[0]);
     const score = (matches.length > 1) ? parseFloat(matches[1]) : null;
@@ -39,44 +58,44 @@ export function parseScore(text: string): Result<Score | undefined, string> {
         fullBell = true;
     }
 
-    return Ok({level, score, allBreak, fullBell});
+    return Ok({level, score, allBreak, fullBell, multiplier});
 }
 
-export function parseBestFrame(text: string, size: number): ScoreWithRating[] {
-    let raw = text.split('\n').map(parseScore);
-
-    let scoresWithRating: ScoreWithRating[];
-    {
-        let scores: Score[] = [];
-        let errors = [];
-        for (let r of raw) {
-            if (r.ok == false) {
-                errors.push(r.error);
-            } else {
-                if (r.value !== undefined) {
-                    scores.push(r.value);
-                }
+export function parseBestFrame(text: string, size: number): Result<Score[], string> {
+    let scores: ParsedScore[] = [];
+    let errors: [number, string][] = [];
+    text.split('\n').forEach((line, index) => {
+        let r = parseScore(line);
+        if (r.ok == false) {
+            errors.push([index+1, r.error]);
+        } else {
+            if (r.value !== undefined) {
+                scores.push(r.value);
             }
         }
+    });
 
-        if (errors.length > 0) {
-            // report errors... idk
-            return;
+    if (errors.length > 0) {
+        // report errors... idk
+        return Err(errors.map(([lineno, err]) => `Line ${lineno}: ${err}`).join('\n'));
+    }
+
+    let scoresWithRating: Score[] = [];
+    for (let s of scores) {
+        let rating;
+        if (s.score === null) {
+            rating = s.level;
+        } else {
+            rating = computeRating(s.score, s.level);
         }
 
-        for (let s of scores as ScoreWithRating[]) {
-            let rating;
-            if (s.score === null) {
-                rating = s.level;
-            } else {
-                rating = computeRating(s.score, s.level);
-            }
-            s.rating = rating;
+        let mult = (s.multiplier == null) ? 1 : s.multiplier;
+        for (let i=0; i<mult; i++) {
+            scoresWithRating.push({...s, rating});
         }
-        scoresWithRating = scores as ScoreWithRating[];
     }
 
     scoresWithRating.sort((a, b) => b.rating - a.rating);
     scoresWithRating.splice(size);
-    return scoresWithRating;
+    return Ok(scoresWithRating);
 }
