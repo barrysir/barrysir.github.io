@@ -1,5 +1,6 @@
 ---
 import ExactScoreCalculator from '@components/ongeki/ExactScoreCalculator.astro';
+import RatingCalculator from '@components/ongeki/rating-calculator/RatingCalculator.astro';
 import Layout from '../../layouts/OngekiLayout.astro';
 ---
 
@@ -59,6 +60,10 @@ import Layout from '../../layouts/OngekiLayout.astro';
         <div class="card">
             <h2>Exact Score Calculator</h2>
             <ExactScoreCalculator />
+        </div>
+        <div class="card">
+            <h2>Rating Calculator</h2>
+            <RatingCalculator />
         </div>
     </div>
 </Layout>

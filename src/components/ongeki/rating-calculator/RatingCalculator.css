@@ -1,0 +1,51 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: auto;
+  align-items: stretch;
+}
+
+.best-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  flex: 1;
+}
+
+/* Make the Best textarea stretch to match height of right column */
+.best-box textarea {
+  height: 100%;
+  min-height: unset;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
