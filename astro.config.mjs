@@ -3,12 +3,14 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import {remarkHeadingId} from 'remark-custom-heading-id';
 
+import solidJs from '@astrojs/solid-js';
+
 // https://astro.build/config
 export default defineConfig({
     markdown: {
         remarkPlugins: [remarkHeadingId],
     },
-    integrations: [mdx()],
+    integrations: [mdx(), solidJs()],
     // not sure what this does, but they recommend to set it
     site: 'https://barrysir.github.io',
     // since deploying on github pages, deploy static site
