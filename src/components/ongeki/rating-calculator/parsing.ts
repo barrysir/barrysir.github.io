@@ -12,10 +12,10 @@ export type Score = {
 export type ScoreWithRating = Score & {rating: number};
 
 export function parseScore(text: string): Result<Score | undefined, string> {
-    // trim whitespace
-    text = text.trim();
     // remove comment
     text = text.replace(/\/\/.*$/, '');
+    // trim whitespace
+    text = text.trim();
     // lowercase so "AB" and "ab" are read the same
     text = text.toLowerCase();
 
