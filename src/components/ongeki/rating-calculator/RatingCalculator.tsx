@@ -30,6 +30,19 @@ function calcFrame(name: string, text: string, size: number): FrameInfo {
 
 export function RatingCalculator() {
   const [tableData, setTableData] = createSignal<FrameInfo[]>([]);
+  const [showSyntax, setShowSyntax] = createSignal(false);
+
+  function questionMarkIcon() {
+    return (
+      <span
+      class="cursor-pointer text-gray-400 text-lg align-top"
+      onclick={() => setShowSyntax(x => !x)}
+      title="Toggle syntax help"
+      >
+      ?
+      </span>
+    );
+  }
 
   function handleClick() {
     let framebest = calcFrame("Best", textAreaBest.value, 30);
@@ -51,6 +64,19 @@ export function RatingCalculator() {
 
   return (
     <div class={styles.calc}>
+      <h2 class="m-0 mb-2">Rating Calculator {questionMarkIcon()}</h2>
+      <Show when={showSyntax()}>
+        <div class="syntax border text-sm p-2 my-2">
+          <span class="font-bold">Syntax:</span>
+          <div class="grid grid-flow-col grid-rows-3 text-xs mt-1">
+            <span><code>13.55</code>: simple rating</span>
+            <span><code>13.6 1001000</code>: chart constant + score</span>
+            <span><code>13.7 1007831 ABFB</code>: AB/FB flags</span>
+            <span><code>16.0 x10</code>: line multipliers</span>
+            <span><code>14.7 1003400   // Adverse Gaff</code>: comments</span>
+          </div>
+        </div>
+      </Show>
       <div class="grid grid-cols-2 gap-6">
         <div class="flex flex-col h-full">
           <label for="best">Best</label>
