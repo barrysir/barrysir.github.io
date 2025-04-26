@@ -61,24 +61,19 @@ export function parseScore(text: string): Result<ParsedScore | undefined, string
     return Ok({level, score, allBreak, fullBell, multiplier});
 }
 
-export function parseBestFrame(text: string, size: number): Result<Score[], string> {
+export function parseBestFrame(text: string, size: number): {scores: Score[], errors: {lineno: number, error: string}[]} {
     let scores: ParsedScore[] = [];
-    let errors: [number, string][] = [];
+    let errors: {lineno: number, error: string}[] = [];
     text.split('\n').forEach((line, index) => {
         let r = parseScore(line);
         if (r.ok == false) {
-            errors.push([index+1, r.error]);
+            errors.push({lineno: index+1, error: r.error});
         } else {
             if (r.value !== undefined) {
                 scores.push(r.value);
             }
         }
     });
-
-    if (errors.length > 0) {
-        // report errors... idk
-        return Err(errors.map(([lineno, err]) => `Line ${lineno}: ${err}`).join('\n'));
-    }
 
     let scoresWithRating: Score[] = [];
     for (let s of scores) {
@@ -97,5 +92,9 @@ export function parseBestFrame(text: string, size: number): Result<Score[], stri
 
     scoresWithRating.sort((a, b) => b.rating - a.rating);
     scoresWithRating.splice(size);
-    return Ok(scoresWithRating);
+
+    return {
+        scores: scoresWithRating,
+        errors: errors,
+    }
 }
