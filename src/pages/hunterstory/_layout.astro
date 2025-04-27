@@ -1,4 +1,5 @@
 ---
+import HunterstoryFaviconLayout from '@layouts/HunterstoryFaviconLayout.astro';
 import '@assets/hunterstory/hunterstory.css';
 import Navlink from './_navlink.astro';
 
@@ -8,21 +9,11 @@ interface Props {
 
 const { pageTitle } = Astro.props;
 
-import HunterFavicon from "@assets/hunterstory/favicon.png";
-
 // const pages = import.meta.glob('./*.astro');
 
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href={HunterFavicon.src} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
+<HunterstoryFaviconLayout title={pageTitle}>
     <div style="display: grid; grid-template-columns: 230px 1fr; ">
         <div>
             <div style="position: fixed; top: 0; left: 0; width: 230px;">
@@ -54,6 +45,8 @@ import HunterFavicon from "@assets/hunterstory/favicon.png";
                     <li><Navlink curr={pageTitle} href="credits_changelog.html" title="Credits/Changelog" /></li>
                     <li><Navlink curr={pageTitle} href="downloads.html" title="Downloads" /></li>
                     <li>&nbsp;</li>
+                    <li><Navlink curr={pageTitle} classes="green" href="play.html" title="Play Hunterstory" /></li>
+                    <li>&nbsp;</li>
                     <li><a href="..">&lt;&lt;&lt; Back</a></li>
                 </ul>
             </div>
@@ -63,8 +56,7 @@ import HunterFavicon from "@assets/hunterstory/favicon.png";
 		    <slot />
         </div>
     </div>
-</body>
-</html>
+</HunterstoryFaviconLayout>
 
 <style>
 	html, body {

@@ -52,3 +52,7 @@ a {
 a:hover {
     color: #ff6f61;
 }
+
+a.green {
+    color: green;
+}

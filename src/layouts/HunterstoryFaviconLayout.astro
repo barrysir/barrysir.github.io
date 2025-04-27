@@ -1,0 +1,8 @@
+---
+const { title } = Astro.props;
+import Layout from './Layout.astro';
+import Favicon from "@assets/hunterstory/favicon.png";
+---
+<Layout pageTitle={title} favicon={Favicon.src}>
+    <slot />
+</Layout>

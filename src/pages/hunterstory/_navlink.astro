@@ -1,7 +1,7 @@
 ---
 
-const { href, title, curr } = Astro.props;
+const { href, title, curr, classes = undefined } = Astro.props;
 
 ---
 
-{(title == curr) ? <span>{title}</span> : <a href={href}>{title}</a>}
+{(title == curr) ? <span>{title}</span> : <a class={classes} href={href}>{title}</a>}
