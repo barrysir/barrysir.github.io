@@ -77,6 +77,8 @@ let refreshTechnicalRankBonus: [number, number][] = [
 ];
 
 let scoreBonus: [number, number][] = [
+    [800000, -6],
+    [900000, -4],
     [Grade.S, 0],
     [Grade.SS, 1],
     [Grade.SSS, 1.5],
@@ -119,18 +121,21 @@ const clearBadgeTable = new Map([
 const fullBellBonus = 0.5;
 
 export function computeRating(points: number, level: number): numberTimesHundred {
-    let rating;
+    let rating: numberTimesHundred;
+    let level100 = toTimesHundred(level);
     if (points >= Grade.SSSP) {
-        rating = 2;
-    } else if (points >= Grade.S) {
-        rating = lerpTable(scoreBonus, points);
-        assert(rating !== null);
+        rating = level100 + 200 as numberTimesHundred;
+    } else if (points >= 800000) {
+        let val = lerpTable(scoreBonus, points);
+        assert(val !== null);
+        rating = level100 + Math.floor(val * 100) as numberTimesHundred;
+    } else if (points >= 500000) {
+        rating = (level100 - 600) * (points - 500000) / 300000 as numberTimesHundred;
     } else {
-        // -0.01 rating every 175 points
-        rating = (points - Grade.S) / 175 * 0.01;
+        rating = 0 as numberTimesHundred;
     }
 
-    return Math.max(0, toTimesHundred(level) + Math.floor(rating * 100)) as numberTimesHundred;
+    return Math.max(0, rating) as numberTimesHundred;
 }
 
 export function computeRefreshRating(points: number, level: number, clear_badge: ClearBadge, full_bell: boolean): number {
