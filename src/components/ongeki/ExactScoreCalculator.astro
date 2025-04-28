@@ -57,7 +57,7 @@
         let minbells = Math.max(0, Math.ceil((S - 950000) / 60000 * B));
         
         for (let b = minbells; b <= B; b++) {
-            let bellscore = (b / B) * 60000;
+            let bellscore = Math.floor((b / B) * 60000);
             
             // Check range of nibbles which put score between score and score + 10*max_damage
             // N'/(10*N) * 950000 + bellscore >= score
@@ -68,12 +68,14 @@
             
             for (let n = minnibs; n <= maxnibs; n++) {
                 // with this bell score + note score, 
-                // check if there is a damage count that subtracts exactly to the score
-                let score = Math.round(n / (10 * N) * 950000 + bellscore);
-                let damage = Math.floor((score - S) / 10);
+                // check if there is a damage count that subtracts exactly to the requested score
+                let notescore = Math.floor(n / (10 * N) * 950000);
+                let score = notescore + bellscore;
+
                 let rem = (score - S) % 10;
-                
                 if (rem !== 0) continue;
+
+                let damage = Math.floor((score - S) / 10);
                 if (damage > max_damage) continue;
                 
                 solutions.push(
