@@ -1,6 +1,7 @@
 import type { Result } from "@components/utils";
 import { Err, Ok } from "@components/utils";
 import { computeRating } from "./ongeki";
+import { toTimesHundred, type numberTimesHundred } from "@components/NumberInteger";
 
 export type ParsedScore = {
     level: number;
@@ -15,7 +16,7 @@ export type Score = {
     score: number | null;
     allBreak: boolean;
     fullBell: boolean;
-    rating: number;
+    rating: numberTimesHundred;
 }
 
 export function parseScore(text: string): Result<ParsedScore | undefined, string> {
@@ -77,9 +78,16 @@ export function parseBestFrame(text: string, size: number): {scores: Score[], er
 
     let scoresWithRating: Score[] = [];
     for (let s of scores) {
-        let rating;
+        let rating: numberTimesHundred;
         if (s.score === null) {
-            rating = s.level;
+            // there's a rounding "bug" here I can't figure out how to fix
+            // if user enters a raw rating with more decimal points, we want to round down (truncate) because that's what ongeki does
+            // 16.681 => 1668.1 => 1668
+            // but rounding down breaks this number:
+            // 16.9 * 100 => 1689.9999... => 1689
+            // probably need some decimal type but bundles are all pretty big for this small use case
+            // so i'll just leave it as rounding for now
+            rating = Math.round(s.level * 100) as numberTimesHundred;
         } else {
             rating = computeRating(s.score, s.level);
         }

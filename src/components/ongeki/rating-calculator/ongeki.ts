@@ -1,3 +1,4 @@
+import { toTimesHundred, type numberTimesHundred } from "@components/NumberInteger";
 import { assert } from "@components/utils";
 
 //---------------------------
@@ -117,7 +118,7 @@ const clearBadgeTable = new Map([
 
 const fullBellBonus = 0.5;
 
-export function computeRating(points: number, level: number): number {
+export function computeRating(points: number, level: number): numberTimesHundred {
     let rating;
     if (points >= Grade.SSSP) {
         rating = 2;
@@ -129,7 +130,7 @@ export function computeRating(points: number, level: number): number {
         rating = (points - Grade.S) / 175 * 0.01;
     }
 
-    return Math.max(0, level + rating);
+    return Math.max(0, toTimesHundred(level) + Math.floor(rating * 100)) as numberTimesHundred;
 }
 
 export function computeRefreshRating(points: number, level: number, clear_badge: ClearBadge, full_bell: boolean): number {

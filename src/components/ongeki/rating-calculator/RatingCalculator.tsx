@@ -1,16 +1,22 @@
+import { fromTimesHundred, numberFloorDivide, type numberTimesHundred } from "@components/NumberInteger";
 import { parseBestFrame } from "./parsing";
 import styles from "./RatingCalculator.module.css";
 import { createSignal, Show } from "solid-js";
 
-function sum<T>(arr: T[], key: (a: T) => number): number {
-  return arr.reduce((acc, x) => acc + key(x), 0);
+function sum<T, U extends number>(arr: T[], key: (a: T) => U): U {
+  // can't use arr.reduce() because it expects the array and accumulator to be the same type
+  let s = 0 as U;
+  for (let x of arr) {
+    s = (s + key(x)) as U;
+  }
+  return s;
 }
 
 type FrameInfo = {
   name: string;
   size: number;
   average: number;
-  total: number;
+  total: numberTimesHundred;
   errors?: string;
 };
 
@@ -48,11 +54,13 @@ export function RatingCalculator() {
     let framebest = calcFrame("Best", textAreaBest.value, 30);
     let framenew = calcFrame("New", textAreaNew.value, 15);
     let framerecent = calcFrame("Recent", textAreaRecent.value, 10);
+
+    let total = (framebest.total + framenew.total + framerecent.total) as numberTimesHundred;
     let frametotal = {
       name: "Total",
       size: (framebest.size + framenew.size + framerecent.size),
-      average: (framebest.total + framenew.total + framerecent.total) / 55,
-      total: framebest.total + framenew.total + framerecent.total,
+      average: total / 55,
+      total: total,
     };
 
     setTableData([framebest, framenew, framerecent, frametotal]);
@@ -129,8 +137,8 @@ export function RatingCalculator() {
                 <tr>
                   <td class="border font-bold text-center">{frame.name}</td>
                   <td class="border text-center">{frame.size}</td>
-                  <td class="border text-center">{frame.average.toFixed(3)}</td>
-                  <td class="border text-center">{frame.total.toFixed(3)}</td>
+                  <td class="border text-center">{fromTimesHundred(frame.average).toFixed(3)}</td>
+                  <td class="border text-center">{fromTimesHundred(frame.total).toFixed(3)}</td>
                 </tr>
               ))}
             </tbody>
