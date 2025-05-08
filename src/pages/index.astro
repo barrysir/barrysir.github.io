@@ -1,78 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from "astro:assets";
-import taikoImage from '../assets/taiko.jpg';
+import taikoImage from '@assets/taiko.jpg';
+import hunterstoryIcon from '@assets/homepage/hunterstory.png';
+import ongekiIcon from '@assets/homepage/ongeki.png';
+import HomepageCard from '@components/homepage/HomepageCard.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout pageTitle="Lorem Ipsum Dolor Sit Amet">
-
-    <!-- Helper CSS classes -->
-    <style>
-        .box-link {
-            font-size: 24px;
-            font-variant: small-caps;
-            border: 2px solid white;
-            padding: 5px 15px;
-            text-decoration: none;
-        }
-
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
-    <!-- Main CSS -->
-    <style>
+    <style is:global>
         * {
             font-family: 'Roboto', sans-serif;
             color: white;
         }
 
-        p {
-            margin: 0px;
-        }
-
-        ul {
-            margin-top: 15px;
-            margin-bottom: 0px;
-        }
-
-        a:hover {
-            color: lightgrey ;
-        }
-
         body {
             background-color: #0D0F44;
-        }
-
-        .card {
-            width: 90vw;
-            border: 1px solid white;
-            border-radius: 15px; 
-            margin: 10px auto;
-            padding: 15px;
-        }
-
-        #heading-text {
-            font-size: 72px;
-            text-align: center;
-            margin-top: 0.5em;
-            margin-bottom: 0.25em;
-        }
-
-        #imglinks {
-            text-align: center;
-            margin-bottom: 20px;
         }
     </style>
 	
 	<div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
 		<Image id="taiko" src={taikoImage} alt="ASFASDFASDF" style="width: 300px; height: auto; cursor: pointer;" />
     </div>
+    <HomepageCard href="hunterstory/" position={[0.2, 0.2]} imageSrc={hunterstoryIcon} header="Hunterstory" content="A guide for Hunterstory, an old Maplestory flash game" />
+    <HomepageCard href="ongeki/" position={[0.43, 0.7]} imageSrc={ongekiIcon} header="Ongeki" content="Various Ongeki tools and resources" />
+    <HomepageCard href="blog/" position={[0.55, 0.16]} imageSrc={null} header="Blog" content="wip" />
+
     <script>
         document.getElementById("taiko").addEventListener("click", function(ev) {
             let angle = Math.random() * 360;

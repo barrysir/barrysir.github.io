@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+
+function inverse2(value: number, less: string, greater: string) {
+  // want boxes to move based on the distance from the center to the closest corner
+  let percent = (value * 100).toFixed(1) + "%";
+  return `${less}: ${percent}`;
+}
+
+function inverse(value: number, less: string, greater: string) {
+  return inverse2(value, less, greater);
+
+  // want boxes to move based on the distance from the center to the closest corner
+  let norm = (value < 0.5) ? value : 1-value;
+  let percent = (norm * 100).toFixed(1) + "%";
+  if (value < 0.5) {
+    return `${less}: ${percent}`;
+  } else {
+    return `${greater}: ${percent}`;
+  }
+}
+
+const { imageSrc, header, content, href, position } = Astro.props;
+const [posT, posL] = position;
+
+const cardPositionStyle = `${inverse(posT, 'top', 'bottom')}; ${inverse(posL, 'left', 'right')}`
+
+const height = 75;
+---
+
+<style define:vars={{ height }}>
+  .card {
+    display: flex;
+    border-radius: 1rem;
+    border: 1px white solid;
+    color: #ffffff;
+    overflow: hidden;
+    width: calc(var(--height) * 4px);
+    height: calc(var(--height) * 1px);
+  }
+
+  .card-content {
+    padding: 2px 2px;
+  }
+
+  .card-inner {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding-bottom: 1px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 0.8em;
+  }
+
+  a:hover .card {
+    box-shadow: 0 0 7px 1px #ffffff;
+  }
+</style>
+
+<a
+  class="absolute block no-underline"
+  style={cardPositionStyle}
+  href={href}
+>
+  <div class="card">
+    <div class="card-inner">
+      {
+        imageSrc !== null ? (
+          <Image src={imageSrc} alt="Card image" width={height} height={height} />
+        ) : (
+          <div style={`width:${height}px; height:${height}px`} />
+        )
+      }
+      <div class="card-content">
+        <div class="card-header">{header}</div>
+        <div class="card-text">{content}</div>
+      </div>
+    </div>
+  </div>
+</a>
