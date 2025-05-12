@@ -1,7 +1,27 @@
 ---
-const { pageTitle, headerTitle } = Astro.props;
 import Layout from '@layouts/Layout.astro';
 import Favicon from "@public/ongeki/favicon.png";
+
+const { pageTitle, headerTitle } = Astro.props;
+
+function getParentUrl(u: URL) {
+  const segments = u.pathname.split('/').filter(Boolean); // Remove empty segments
+
+  // Remove the last path segment (if any)
+  segments.pop();
+
+  // Reconstruct the pathname
+  u.pathname = '/' + segments.join('/');
+
+  // Clear search and hash if you want a clean parent URL
+  u.search = '';
+  u.hash = '';
+
+  return u.toString();
+}
+
+const upAPage = getParentUrl(Astro.url);
+
 ---
 <Layout pageTitle={pageTitle} favicon={Favicon.src}>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
@@ -47,5 +67,6 @@ import Favicon from "@public/ongeki/favicon.png";
     </style>
     
     <h1>{headerTitle ? headerTitle : '\u00A0'}</h1>
+    <a class="mb-2" href={upAPage}>&lt;&lt; Back</a>
     <slot />
 </Layout>
