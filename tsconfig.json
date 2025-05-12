@@ -10,6 +10,7 @@
       "@styles/*": ["src/styles/*"],
       "@public/*": ["public/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js"

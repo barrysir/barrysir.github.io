@@ -13,6 +13,7 @@ export default defineConfig({
     },
     integrations: [mdx(), solidJs()],
     // not sure what this does, but they recommend to set it
+    // "Astro uses this full URL to generate your sitemap and canonical URLs in your final build. It is strongly recommended that you set this configuration to get the most out of Astro."
     site: 'https://barrysir.github.io',
     // since deploying on github pages, deploy static site
     output: 'static',

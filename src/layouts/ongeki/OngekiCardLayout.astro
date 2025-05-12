@@ -1,24 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import Favicon from "@public/ongeki/favicon.png";
+import { getParentUrl } from "@lib/url.ts";
 
 const { pageTitle, headerTitle } = Astro.props;
-
-function getParentUrl(u: URL) {
-  const segments = u.pathname.split('/').filter(Boolean); // Remove empty segments
-
-  // Remove the last path segment (if any)
-  segments.pop();
-
-  // Reconstruct the pathname
-  u.pathname = '/' + segments.join('/');
-
-  // Clear search and hash if you want a clean parent URL
-  u.search = '';
-  u.hash = '';
-
-  return u.toString();
-}
 
 const upAPage = getParentUrl(Astro.url);
 
