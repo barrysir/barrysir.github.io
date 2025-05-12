@@ -1,0 +1,77 @@
+---
+import ExactScoreCalculator from '@components/ongeki/ExactScoreCalculator.astro';
+import RatingCalculator from '@components/ongeki/rating-calculator/RatingCalculator.astro';
+import Layout from '@layouts/ongeki/OngekiCardLayout.astro';
+
+import rawVersionData from './versions.json';
+
+type VersionData = Act[];
+
+type Act = {
+    name: string;
+    versions: Version[];
+};
+
+type Version = {
+    version: string;
+    date: string;
+    songs: VersionSong[];
+};
+
+type VersionSong = {
+    date: string;
+    added: string[];
+    removed: string[];
+};
+
+let versionData = rawVersionData as VersionData;
+
+---
+
+<Layout pageTitle="Ongeki">
+    <div style="width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 10px;">
+        <div class="card">
+            Version history extracted from looking at old youtube videos. <br/>
+            Dates should be correct except for the exact date of version number changes (1.31-C to 1.32-C) since they don't usually line up with song releases and so people don't release videos about them.
+        </div>
+        <div class="card">
+            <ul>
+                {() => {
+                    function intersperse(arr, middle) {
+                        return <>
+                            {arr.map((s, i) => (
+                                <>{s}{(arr.length - 1 !== i) && middle}</>
+                            ))}
+                        </>;
+                    }
+
+                    function renderVersion(ver: Version) {
+                        let firstline = <li>{ver.version} - {ver.date}</li>;
+                        let nextlines = ver.songs.map(s => {
+                            let frags = [];
+                            if (s.added.length > 0) {
+                                frags.push(<li class="text-blue-500">Added: {intersperse(s.added.map(t => <a href="www.google.ca">{t}</a>), ', ')}</li>);
+                            }
+                            if (s.removed.length > 0) {
+                                frags.push(<li class="text-red-500">Removed: {intersperse(s.removed.map(t => <a href="www.google.ca">{t}</a>), ', ')}</li>);
+                            }
+                            return <ul>
+                                <li>{s.date}</li>
+                                <ul>{frags}</ul>
+                            </ul>
+                        });
+                        return <>
+                            {firstline}
+                            {/* {nextlines} */}
+                        </>;
+                    }
+
+                    return versionData.map(act => (
+                        <li>{act.name}</li>
+                        <ul>{act.versions.map(renderVersion)}</ul>
+                    ));
+                }}
+            </ul>
+        </div>
+    </div>
+</Layout>
