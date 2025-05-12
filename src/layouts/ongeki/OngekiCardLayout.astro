@@ -49,9 +49,16 @@ const upAPage = getParentUrl(Astro.url);
             margin: 0px; 
             margin-bottom: 10px;
         }
+
+        /* Remove indent on top-level uls within card, or text appears too far to the right */
+        .card > ul {
+            padding: 0px;
+        }
     </style>
     
     <h1>{headerTitle ? headerTitle : '\u00A0'}</h1>
     <a class="mb-2" href={upAPage}>&lt;&lt; Back</a>
-    <slot />
+    <div style="width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 10px;">
+        <slot />
+    </div>
 </Layout>
