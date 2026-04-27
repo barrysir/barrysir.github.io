@@ -294,14 +294,20 @@ async function parsePage(userId) {
         m = one(allMusics.filter(m => m.title === song.title && m.artist === song.artist));
         if (m) {
             // overwrite displayed song constant, if loading act 2 constants or etc.
-            m[song.diff.toLowerCase()].const = song.const;
-            return m.music_id;
+            let chart = m[song.diff.toLowerCase()];
+            if (chart) {
+                chart.const = song.const;
+                return m.music_id;
+            }
         }
         
         m = one(allMusics.filter(m => m.title.substr(0, 5) === song.title.substr(0, 5)));
         if (m) {
-            m[song.diff.toLowerCase()].const = song.const;
-            return m.music_id;
+            let chart = m[song.diff.toLowerCase()];
+            if (chart) {
+                chart.const = song.const;
+                return m.music_id;
+            }
         }
         
         // Couldn't find the song, just return a random id so the image formatting doesn't screw up
