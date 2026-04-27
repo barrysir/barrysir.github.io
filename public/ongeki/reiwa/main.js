@@ -256,7 +256,14 @@ function renderSongsArea(area, songs, newestDate) {
 
 async function generate() {
     loadingState(true);
+    try {
+        await _generate();
+    } finally {
+        loadingState(false);
+    }
+}
 
+async function _generate() {
     // if (document.getElementById("osl_id").value === "") {
     //     alert("ユーザーIDが入力されていません。");
     //     loadingState(false);
@@ -265,7 +272,12 @@ async function generate() {
 
     // ユーザープロフィール取得
     const userid = 0; // document.getElementById("osl_id").value;
-    const userData = await parsePage(userid);
+    let userData;
+    try {
+        userData = await parsePage(userid);
+    } finally {
+        alert("Error occurred loading the file. Please check the console.");
+    }
 
     if (!userData) {
         loadingState(false);
