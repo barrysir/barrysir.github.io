@@ -1,9 +1,6 @@
 const URLbase_jacket = "/ongeki/jackets/";
 
 window.addEventListener("DOMContentLoaded", function () {
-    // ユーザーID読み込み
-    document.getElementById("osl_id").value = localStorage.getItem("osl_id");
-
     // 設定読み込み
     document.getElementById("showprev").checked = localStorage.getItem("showprev") === "true";
     document.getElementById("showaddrate").checked = localStorage.getItem("showaddrate") === "true";
@@ -275,8 +272,9 @@ async function _generate() {
     let userData;
     try {
         userData = await parsePage(userid);
-    } finally {
+    } catch (e) {
         alert("Error occurred loading the file. Please check the console.");
+        throw e;
     }
 
     if (!userData) {
